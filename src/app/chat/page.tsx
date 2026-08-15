@@ -61,24 +61,29 @@ export default function ChatPage() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [aiMessages, conversation, mode]);
 
-  function sendAi(text: string) {
+  async function sendAi(text: string) {
     if (!text.trim() || aiPending) return;
-    setAiMessages((prev) => [...prev, { role: "user", content: text }]);
+    const nextMessages: AiMessage[] = [...aiMessages, { role: "user", content: text }];
+    setAiMessages(nextMessages);
     setAiInput("");
     setAiPending(true);
-    setTimeout(() => {
-      const suggestHuman = /human|person|agent|talk to someone/i.test(text);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: nextMessages }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.reply) throw new Error(data.error ?? "Chat failed");
+      setAiMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+    } catch {
       setAiMessages((prev) => [
         ...prev,
-        {
-          role: "assistant",
-          content: suggestHuman
-            ? "I can connect you with a real person for that — tap \"Talk to a human\" above whenever you're ready."
-            : "Got it — happy to help with pricing, applying, or how the platform works. Ask away.",
-        },
+        { role: "assistant", content: "Something went wrong — try again, or reach us on WhatsApp." },
       ]);
+    } finally {
       setAiPending(false);
-    }, 700);
+    }
   }
 
   async function talkToHuman() {

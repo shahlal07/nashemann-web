@@ -28,24 +28,29 @@ export function ChatWidget() {
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, [open]);
 
-  function send(text: string) {
+  async function send(text: string) {
     if (!text.trim()) return;
-    setMessages((prev) => [...prev, { role: "user", text }]);
+    const nextMessages: Message[] = [...messages, { role: "user", text }];
+    setMessages(nextMessages);
     setInput("");
-    setTimeout(() => {
-      if (/human|person|agent/i.test(text)) {
-        setHandedOff(true);
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", text: "Connecting you with a human from the Nashemann team — usually replies within a few minutes." },
-        ]);
-      } else {
-        setMessages((prev) => [
-          ...prev,
-          { role: "assistant", text: "Got it — a real agent can dig deeper if needed. Want me to loop in a human?" },
-        ]);
-      }
-    }, 700);
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages.map((m) => ({ role: m.role, content: m.text })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.reply) throw new Error(data.error ?? "Chat failed");
+      if (data.suggestHuman) setHandedOff(true);
+      setMessages((prev) => [...prev, { role: "assistant", text: data.reply }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", text: "Something went wrong — try again, or reach us on WhatsApp." },
+      ]);
+    }
   }
 
   return (

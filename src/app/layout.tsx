@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import Script from "next/script";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
+import { Navbar } from "@/components/public/Navbar";
+import { Footer } from "@/components/public/Footer";
+import { ChatWidget } from "@/components/public/ChatWidget";
+import { PromoPopup } from "@/components/public/PromoPopup";
 import "./globals.css";
 
 const inter = Inter({
@@ -30,7 +34,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>
-        {children}
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <ChatWidget />
+        <PromoPopup />
       </body>
     </html>
   );
