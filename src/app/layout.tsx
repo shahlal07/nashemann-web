@@ -4,8 +4,7 @@ import Script from "next/script";
 import { THEME_INIT_SCRIPT } from "@/lib/theme";
 import { Navbar } from "@/components/public/Navbar";
 import { Footer } from "@/components/public/Footer";
-import { ChatWidget } from "@/components/public/ChatWidget";
-import { PromoPopup } from "@/components/public/PromoPopup";
+import { DeferredWidgets } from "@/components/public/DeferredWidgets";
 import { OrganizationJsonLd } from "@/components/public/OrganizationJsonLd";
 import { MotionProvider } from "@/components/public/MotionProvider";
 import "./globals.css";
@@ -63,8 +62,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
-          <ChatWidget />
-          <PromoPopup />
+          <DeferredWidgets />
         </MotionProvider>
         <OrganizationJsonLd />
       </body>
