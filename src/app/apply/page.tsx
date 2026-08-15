@@ -1,10 +1,10 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { CheckCircle2, Copy, ArrowRight, Layers, UserCheck } from "lucide-react";
+import { CheckCircle2, Copy, ArrowRight, Layers, UserCheck, Loader2, Check, X } from "lucide-react";
 import { TiltCard } from "@/components/public/TiltCard";
 import { ImageUpload } from "@/components/public/ImageUpload";
 import {
@@ -12,6 +12,10 @@ import {
   savePendingApplication,
   getPendingApplication,
   clearPendingApplication,
+  isValidSubdomainFormat,
+  isValidEmailFormat,
+  isValidPakPhoneFormat,
+  isSubdomainTaken,
   type StoredApplication,
   type PendingApplication,
 } from "@/lib/application-store";
@@ -44,9 +48,38 @@ function ApplyPageInner() {
   const [schemas, setSchemas] = useState<CategoryProductSchema[]>([]);
   const schema = schemas.find((s) => s.category === category) ?? null;
 
+  const [emailValue, setEmailValue] = useState(draft?.ownerEmail ?? "");
+  const [phoneValue, setPhoneValue] = useState(draft?.ownerPhone ?? "");
+  const [subdomainValue, setSubdomainValue] = useState(draft?.subdomain ?? "");
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
+  const [checkedSubdomain, setCheckedSubdomain] = useState<{ value: string; result: "checking" | "available" | "taken" } | null>(null);
+  const subdomainCheckId = useRef(0);
+
+  const subdomainTrimmed = subdomainValue.trim().toLowerCase();
+  const subdomainFormatError =
+    subdomainTrimmed && !isValidSubdomainFormat(subdomainTrimmed)
+      ? "Only lowercase letters, numbers, and hyphens (no leading/trailing hyphen), 3-40 characters."
+      : null;
+  const subdomainStatus: "idle" | "checking" | "available" | "taken" =
+    !subdomainTrimmed || subdomainFormatError || checkedSubdomain?.value !== subdomainTrimmed ? "idle" : checkedSubdomain.result;
+
   useEffect(() => {
     getCategorySchemas().then(setSchemas);
   }, []);
+
+  useEffect(() => {
+    if (!subdomainTrimmed || !isValidSubdomainFormat(subdomainTrimmed)) return;
+    const myCheck = ++subdomainCheckId.current;
+    const timer = setTimeout(() => {
+      setCheckedSubdomain({ value: subdomainTrimmed, result: "checking" });
+      isSubdomainTaken(subdomainTrimmed).then((taken) => {
+        if (subdomainCheckId.current !== myCheck) return;
+        setCheckedSubdomain({ value: subdomainTrimmed, result: taken ? "taken" : "available" });
+      });
+    }, 450);
+    return () => clearTimeout(timer);
+  }, [subdomainTrimmed]);
 
   useEffect(() => {
     let active = true;
@@ -58,6 +91,9 @@ function ApplyPageInner() {
         setDraft(pending);
         setCategory(pending.category);
         setPlan(pending.plan);
+        setEmailValue(pending.ownerEmail);
+        setPhoneValue(pending.ownerPhone);
+        setSubdomainValue(pending.subdomain);
         setResumed(true);
       }
     });
@@ -69,14 +105,31 @@ function ApplyPageInner() {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const subdomain = subdomainValue.trim().toLowerCase();
+
+    const emailOk = isValidEmailFormat(emailValue);
+    const phoneOk = isValidPakPhoneFormat(phoneValue);
+    const subdomainFormatOk = isValidSubdomainFormat(subdomain);
+    setEmailError(emailOk ? null : "Enter a valid email address.");
+    setPhoneError(phoneOk ? null : "Enter a valid Pakistani mobile number (e.g. 0300-1234567).");
+
+    if (!emailOk || !phoneOk || !subdomainFormatOk) return;
+
+    if (subdomainStatus === "checking") return;
+    if (subdomainStatus !== "available") {
+      const taken = await isSubdomainTaken(subdomain);
+      setCheckedSubdomain({ value: subdomain, result: taken ? "taken" : "available" });
+      if (taken) return;
+    }
+
     const fields: PendingApplication = {
       businessName: String(formData.get("businessName") ?? ""),
       category: String(formData.get("category") ?? ""),
       city: String(formData.get("city") ?? ""),
       ownerName: String(formData.get("ownerName") ?? ""),
-      ownerEmail: String(formData.get("ownerEmail") ?? ""),
-      ownerPhone: String(formData.get("ownerPhone") ?? ""),
-      subdomain: String(formData.get("subdomain") ?? ""),
+      ownerEmail: emailValue,
+      ownerPhone: phoneValue,
+      subdomain,
       plan,
       message: String(formData.get("message") ?? ""),
       referralCode: draft?.referralCode ?? referralCode,
@@ -246,24 +299,59 @@ function ApplyPageInner() {
                   </label>
                   <label className="block">
                     <span className={labelClass}>Email</span>
-                    <input name="ownerEmail" required type="email" defaultValue={draft?.ownerEmail} className={inputClass} />
+                    <input
+                      name="ownerEmail"
+                      required
+                      type="email"
+                      value={emailValue}
+                      onChange={(e) => setEmailValue(e.target.value)}
+                      onBlur={() => setEmailError(emailValue && !isValidEmailFormat(emailValue) ? "Enter a valid email address." : null)}
+                      className={inputClass}
+                    />
+                    {emailError && <p className="mt-1.5 text-xs text-[var(--danger)]">{emailError}</p>}
                   </label>
                   <label className="block">
                     <span className={labelClass}>Phone</span>
-                    <input name="ownerPhone" required defaultValue={draft?.ownerPhone} placeholder="03XX-XXXXXXX" className={inputClass} />
+                    <input
+                      name="ownerPhone"
+                      required
+                      value={phoneValue}
+                      onChange={(e) => setPhoneValue(e.target.value)}
+                      onBlur={() => setPhoneError(phoneValue && !isValidPakPhoneFormat(phoneValue) ? "Enter a valid Pakistani mobile number (e.g. 0300-1234567)." : null)}
+                      placeholder="03XX-XXXXXXX"
+                      className={inputClass}
+                    />
+                    {phoneError && <p className="mt-1.5 text-xs text-[var(--danger)]">{phoneError}</p>}
                   </label>
                   <label className="block">
                     <span className={labelClass}>Preferred subdomain</span>
-                    <div className="flex items-center overflow-hidden rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] focus-within:border-[var(--accent-violet)]">
+                    <div
+                      className={`flex items-center overflow-hidden rounded-[var(--radius-sm)] border bg-[var(--surface)] focus-within:border-[var(--accent-violet)] ${
+                        subdomainStatus === "taken" || subdomainFormatError ? "border-[var(--danger)]" : "border-[var(--border)]"
+                      }`}
+                    >
                       <input
                         name="subdomain"
                         required
-                        defaultValue={draft?.subdomain}
+                        value={subdomainValue}
+                        onChange={(e) => setSubdomainValue(e.target.value.toLowerCase())}
                         placeholder="sabz-basket"
                         className="w-full bg-transparent px-4 py-3 text-sm text-[var(--text)] outline-none placeholder:text-[var(--text-faint)]"
                       />
-                      <span className="shrink-0 pr-3 text-xs text-[var(--text-faint)]">.nashemann.com</span>
+                      <span className="flex shrink-0 items-center gap-1.5 pr-3 text-xs text-[var(--text-faint)]">
+                        {subdomainStatus === "checking" && <Loader2 size={13} className="animate-spin" />}
+                        {subdomainStatus === "available" && <Check size={13} className="text-[var(--success)]" />}
+                        {subdomainStatus === "taken" && <X size={13} className="text-[var(--danger)]" />}
+                        .nashemann.com
+                      </span>
                     </div>
+                    {subdomainFormatError && <p className="mt-1.5 text-xs text-[var(--danger)]">{subdomainFormatError}</p>}
+                    {!subdomainFormatError && subdomainStatus === "taken" && (
+                      <p className="mt-1.5 text-xs text-[var(--danger)]">That subdomain is already taken — try another.</p>
+                    )}
+                    {!subdomainFormatError && subdomainStatus === "available" && (
+                      <p className="mt-1.5 text-xs text-[var(--success)]">Available.</p>
+                    )}
                   </label>
                 </div>
 
@@ -315,7 +403,7 @@ function ApplyPageInner() {
                   whileHover={{ scale: 1.01 }}
                   whileTap={{ scale: 0.98 }}
                   type="submit"
-                  disabled={submitting}
+                  disabled={submitting || subdomainStatus === "checking" || subdomainStatus === "taken"}
                   className="w-full rounded-full py-3.5 text-sm font-semibold text-black shadow-[var(--shadow-glow-violet)] disabled:opacity-60"
                   style={{ background: "var(--accent-gradient)" }}
                 >

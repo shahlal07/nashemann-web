@@ -150,3 +150,29 @@ export function getPendingApplication(): PendingApplication | null {
 export function clearPendingApplication() {
   if (typeof window !== "undefined") window.localStorage.removeItem(PENDING_KEY);
 }
+
+const SUBDOMAIN_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PK_PHONE_PATTERN = /^03\d{9}$/;
+
+export function isValidSubdomainFormat(value: string): boolean {
+  return value.length >= 3 && value.length <= 40 && SUBDOMAIN_PATTERN.test(value);
+}
+
+export function isValidEmailFormat(value: string): boolean {
+  return EMAIL_PATTERN.test(value.trim());
+}
+
+/** Accepts 03XX-XXXXXXX or 03XXXXXXXXX -- Pakistani mobile format used throughout the rest of the app. */
+export function isValidPakPhoneFormat(value: string): boolean {
+  return PK_PHONE_PATTERN.test(value.replace(/[\s-]/g, ""));
+}
+
+/** Checks the `subdomain` a vendor picked on /apply against live rows in `vendors` (the real table a subdomain would collide with once provisioned). */
+export async function isSubdomainTaken(subdomain: string): Promise<boolean> {
+  if (!isValidSubdomainFormat(subdomain)) return false;
+  const supabase = createClient();
+  const { data, error } = await supabase.from("vendors").select("id").eq("subdomain", subdomain).limit(1);
+  if (error) return false;
+  return (data?.length ?? 0) > 0;
+}

@@ -84,8 +84,8 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
     primaryCta: "Apply for your store",
     secondaryCta: "See pricing",
     stats: [
-      { label: "Vendors live", value: 5 },
-      { label: "Orders processed", value: 1284 },
+      { label: "Vendors live", value: 2 },
+      { label: "Orders processed", value: 101 },
       { label: "Avg. setup time", value: 2, suffix: " days" },
     ],
   },

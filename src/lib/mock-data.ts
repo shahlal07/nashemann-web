@@ -364,6 +364,90 @@ const DEFAULT_PRICING: PlatformPricing = {
   customDomainFee: 4600,
 };
 
+// ── Real homepage proof points (vendors table + application counts) ────────
+// Unlike the MOCK_* arrays above, these read the live `vendors` /
+// `vendor_applications` tables so the homepage never shows fabricated scale.
+
+export type ShowcaseVendor = {
+  id: string;
+  name: string;
+  subdomain: string;
+  customDomain: string | null;
+  category: string | null;
+  city: string;
+  ordersLast30d: number;
+  logoEmoji: string;
+  logoUrl: string | null;
+  accentFrom: string;
+  accentTo: string;
+  joinedAt: string;
+};
+
+type VendorRow = {
+  id: string;
+  name: string;
+  subdomain: string;
+  custom_domain: string | null;
+  category: string | null;
+  city: string;
+  orders_last_30d: number;
+  theme_logo_emoji: string;
+  theme_logo_url: string | null;
+  theme_accent_from: string;
+  theme_accent_to: string;
+  joined_at: string;
+};
+
+/** Active vendor rows for the homepage showcase -- real rows only, no fallback to MOCK_VENDORS. */
+export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
+  const supabase = createClient();
+  const { data, error } = await supabase
+    .from("vendors")
+    .select(
+      "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at"
+    )
+    .eq("status", "active")
+    .order("joined_at", { ascending: false })
+    .limit(limit);
+  if (error || !data) return [];
+  return (data as VendorRow[]).map((v) => ({
+    id: v.id,
+    name: v.name,
+    subdomain: v.subdomain,
+    customDomain: v.custom_domain,
+    category: v.category,
+    city: v.city,
+    ordersLast30d: v.orders_last_30d,
+    logoEmoji: v.theme_logo_emoji,
+    logoUrl: v.theme_logo_url,
+    accentFrom: v.theme_accent_from,
+    accentTo: v.theme_accent_to,
+    joinedAt: v.joined_at,
+  }));
+}
+
+export type PlatformLiveStats = {
+  activeVendors: number;
+  ordersLast30d: number;
+  pendingApplications: number;
+};
+
+/** Live counts for the hero stat row -- replaces the seeded `site_content.hero.stats` numbers so the homepage never overstates real scale. */
+export async function getPlatformLiveStats(): Promise<PlatformLiveStats | null> {
+  const supabase = createClient();
+  const [vendorsRes, applicationsRes] = await Promise.all([
+    supabase.from("vendors").select("orders_last_30d").eq("status", "active"),
+    supabase.from("vendor_applications").select("id", { count: "exact", head: true }).eq("status", "pending"),
+  ]);
+  if (vendorsRes.error) return null;
+  const rows = (vendorsRes.data ?? []) as { orders_last_30d: number }[];
+  return {
+    activeVendors: rows.length,
+    ordersLast30d: rows.reduce((sum, r) => sum + (r.orders_last_30d ?? 0), 0),
+    pendingApplications: applicationsRes.count ?? 0,
+  };
+}
+
 let cachedPricing: Promise<PlatformPricing> | null = null;
 
 /** Reads the single `platform_pricing` row (public read policy), falling back to the seeded defaults if the fetch fails. */
