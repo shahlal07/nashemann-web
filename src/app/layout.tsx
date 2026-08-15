@@ -7,6 +7,7 @@ import { Footer } from "@/components/public/Footer";
 import { ChatWidget } from "@/components/public/ChatWidget";
 import { PromoPopup } from "@/components/public/PromoPopup";
 import { OrganizationJsonLd } from "@/components/public/OrganizationJsonLd";
+import { MotionProvider } from "@/components/public/MotionProvider";
 import "./globals.css";
 
 const SITE_URL = "https://nashemann-web.vercel.app";
@@ -58,11 +59,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <Script id="theme-init" strategy="beforeInteractive">
           {THEME_INIT_SCRIPT}
         </Script>
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <ChatWidget />
-        <PromoPopup />
+        <MotionProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <ChatWidget />
+          <PromoPopup />
+        </MotionProvider>
         <OrganizationJsonLd />
       </body>
     </html>
