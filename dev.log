@@ -1,0 +1,2504 @@
+▲ Next.js 16.3.1 (Turbopack)
+- Local:         http://localhost:3301
+- Network:       http://192.168.32.1:3301
+- Environments: .env.local
+✓ Ready in 1349ms
+✓ Running next.config.ts took 131ms
+
+○ Compiling / ...
+ GET / 200 in 6.4s (next.js: 5.9s, application-code: 513ms)
+ GET /signup 200 in 1716ms (next.js: 1380ms, application-code: 336ms)
+✓ Compiled in 215ms
+ GET / 200 in 139ms (next.js: 93ms, application-code: 47ms)
+ GET /signup 200 in 148ms (next.js: 45ms, application-code: 103ms)
+✓ Compiled in 136ms
+ GET / 200 in 134ms (next.js: 81ms, application-code: 53ms)
+ GET /signup 200 in 139ms (next.js: 37ms, application-code: 102ms)
+✓ Compiled in 129ms
+ GET / 200 in 151ms (next.js: 33ms, application-code: 118ms)
+ GET /signup 200 in 162ms (next.js: 84ms, application-code: 78ms)
+✓ Compiled in 122ms
+ GET / 200 in 128ms (next.js: 36ms, application-code: 93ms)
+ GET /signup 200 in 128ms (next.js: 74ms, application-code: 54ms)
+✓ Compiled in 140ms
+ GET / 200 in 133ms (next.js: 32ms, application-code: 102ms)
+ GET /signup 200 in 133ms (next.js: 78ms, application-code: 55ms)
+ GET /login 200 in 1153ms (next.js: 1046ms, application-code: 107ms)
+ GET /account 200 in 1442ms (next.js: 1386ms, application-code: 56ms)
+ GET / 200 in 50ms (next.js: 19ms, application-code: 31ms)
+ GET /account 200 in 141ms (next.js: 13ms, application-code: 128ms)
+ GET /login 200 in 99ms (next.js: 13ms, application-code: 86ms)
+ GET /account 200 in 53ms (next.js: 10ms, application-code: 43ms)
+ GET / 200 in 123ms (next.js: 31ms, application-code: 92ms)
+ GET /account 200 in 122ms (next.js: 69ms, application-code: 54ms)
+ GET / 200 in 116ms (next.js: 33ms, application-code: 83ms)
+ GET /account 200 in 115ms (next.js: 70ms, application-code: 45ms)
+✓ Compiled in 260ms
+✓ Compiled in 451ms
+✓ Compiled in 162ms
+✓ Compiled in 180ms
+✓ Compiled in 119ms
+✓ Compiled in 140ms
+✓ Compiled in 126ms
+✓ Compiled in 115ms
+ GET /account 200 in 180ms (next.js: 100ms, application-code: 80ms)
+ GET / 200 in 184ms (next.js: 41ms, application-code: 142ms)
+✓ Compiled in 361ms
+ GET /account 200 in 222ms (next.js: 13ms, application-code: 209ms)
+ GET / 200 in 156ms (next.js: 47ms, application-code: 110ms)
+✓ Compiled in 208ms
+✓ Compiled in 189ms
+ GET /account 200 in 113ms (next.js: 32ms, application-code: 82ms)
+ GET / 200 in 114ms (next.js: 68ms, application-code: 45ms)
+ GET /account 200 in 120ms (next.js: 31ms, application-code: 89ms)
+ GET / 200 in 122ms (next.js: 66ms, application-code: 56ms)
+⨯ The directory at "E:\Claude\nashemann-web\.next" was deleted.
+
+Deleting this directory while Next.js is running can lead to undefined behavior. Restarting the server to recover...
+▲ Next.js 16.3.1 (Turbopack)
+- Local:         http://localhost:3301
+- Network:       http://192.168.32.1:3301
+- Environments: .env.local
+✓ Ready in 2.2s
+✓ Running next.config.ts took 410ms
+
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Hero.tsx:10:1
+Error: Export HERO_CONTENT doesn't exist in target module
+   8 | import { DashboardMockup } from "../DashboardMockup";
+   9 | import { StatCounter } from "../StatCounter";
+> 10 | import { HERO_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 |
+  12 | const container: Variants = {
+  13 |   hidden: {},
+
+The export HERO_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Hero.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Hero.tsx:10:1
+Error: Export HERO_CONTENT doesn't exist in target module
+   8 | import { DashboardMockup } from "../DashboardMockup";
+   9 | import { StatCounter } from "../StatCounter";
+> 10 | import { HERO_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 |
+  12 | const container: Variants = {
+  13 |   hidden: {},
+
+The export HERO_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Hero.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Hero.tsx:10:1
+Error: Export HERO_CONTENT doesn't exist in target module
+   8 | import { DashboardMockup } from "../DashboardMockup";
+   9 | import { StatCounter } from "../StatCounter";
+> 10 | import { HERO_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 |
+  12 | const container: Variants = {
+  13 |   hidden: {},
+
+The export HERO_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Hero.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Hero.tsx:10:1
+Error: Export HERO_CONTENT doesn't exist in target module
+   8 | import { DashboardMockup } from "../DashboardMockup";
+   9 | import { StatCounter } from "../StatCounter";
+> 10 | import { HERO_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  11 |
+  12 | const container: Variants = {
+  13 |   hidden: {},
+
+The export HERO_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Hero.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/HowItWorks.tsx:6:1
+Error: Export HOW_IT_WORKS doesn't exist in target module
+  4 | import { Icon } from "../Icon";
+  5 | import { CollapsibleSection } from "../CollapsibleSection";
+> 6 | import { HOW_IT_WORKS } from "@/lib/site-content";
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | function Steps() {
+  9 |   return (
+
+The export HOW_IT_WORKS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/HowItWorks.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Features.tsx:7:1
+Error: Export FEATURES doesn't exist in target module
+   5 | import { Icon } from "../Icon";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { FEATURES } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function FeatureGrid() {
+  10 |   return (
+
+The export FEATURES was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Features.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/Testimonials.tsx:7:1
+Error: Export TESTIMONIALS doesn't exist in target module
+   5 | import { TiltCard } from "../TiltCard";
+   6 | import { CollapsibleSection } from "../CollapsibleSection";
+>  7 | import { TESTIMONIALS } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 |
+   9 | function TestimonialGrid() {
+  10 |   return (
+
+The export TESTIMONIALS was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/Testimonials.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-client] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/RewardsTeaser.tsx:7:1
+Error: Export REWARDS_CONTENT doesn't exist in target module
+   5 | import { ArrowRight, Gift, Users } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { REWARDS_CONTENT } from "@/lib/site-content";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | export function RewardsTeaser() {
+
+The export REWARDS_CONTENT was not found in module [project]/src/lib/site-content.ts [app-ssr] (ecmascript).
+Did you mean to import SITE_CONTENT_DEFAULTS?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/RewardsTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-client] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+[browser] ./src/components/public/sections/PricingTeaser.tsx:7:1
+Error: Export DEFAULT_PRICING doesn't exist in target module
+   5 | import { Check, ArrowRight } from "lucide-react";
+   6 | import { TiltCard } from "../TiltCard";
+>  7 | import { DEFAULT_PRICING } from "@/lib/mock-data";
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+   8 | import { formatPKR } from "@/lib/utils";
+   9 |
+  10 | const PLANS = [
+
+The export DEFAULT_PRICING was not found in module [project]/src/lib/mock-data.ts [app-ssr] (ecmascript).
+Did you mean to import PLAN_DISTRIBUTION?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./src/components/public/sections/PricingTeaser.tsx
+    ./src/app/page.tsx 
+    at handleErrors (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+    at processMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16015:21)
+    at WebSocket.handleMessage (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:16395:52) (file://E:/Claude/nashemann-web/.next/dev/static/chunks/node_modules_next_dist_client_0_90u2t._.js:15951:21)
+○ Compiling / ...
+ GET /account 200 in 11.3s (next.js: 9.5s, application-code: 1786ms)
+ GET / 200 in 11.3s (next.js: 9.6s, application-code: 1670ms)
+[?25h
