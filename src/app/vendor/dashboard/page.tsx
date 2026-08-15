@@ -7,113 +7,50 @@ import { Wallet, ShoppingBag, TrendingUp, ExternalLink, LayoutDashboard } from "
 import { TiltCard } from "@/components/public/TiltCard";
 import { StatCounter } from "@/components/public/StatCounter";
 import { createClient } from "@/lib/supabase/client";
+import { useVendorSessionContext } from "@/lib/vendor-session-context";
 import { formatPKR } from "@/lib/utils";
 import { AreaChart, Area, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 
-type VendorSummary = {
-  name: string;
-  emoji: string;
-  revenueThisMonth: number;
-  ordersThisMonth: number;
-  platformFeeThisMonth: number;
-  growth: number;
-};
-
 type RevenuePoint = { month: string; revenue: number };
-
-type VendorRow = { id: string; name: string; theme_logo_emoji: string; orders_last_30d: number; revenue_last_30d: number };
 
 type SettlementRow = { month: string; orders_count: number; gross_revenue: number; platform_fee: number };
 
 const MONTH_LABEL = new Intl.DateTimeFormat("en-PK", { month: "short" });
 
 export default function VendorDashboardPage() {
-  const [state, setState] = useState<"loading" | "no-access" | "ready">("loading");
-  const [vendor, setVendor] = useState<VendorSummary | null>(null);
+  const { state } = useVendorSessionContext();
   const [trend, setTrend] = useState<RevenuePoint[]>([]);
+  const [latestSettlement, setLatestSettlement] = useState<SettlementRow | null>(null);
+  const [growth, setGrowth] = useState(0);
 
   useEffect(() => {
+    if (state.status !== "ready") return;
     let active = true;
     (async () => {
       const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (!user) {
-        if (active) setState("no-access");
-        return;
-      }
-
-      const { data: account } = await supabase.from("platform_accounts").select("email").eq("id", user.id).single();
-      if (!account) {
-        if (active) setState("no-access");
-        return;
-      }
-
-      const { data: admin } = await supabase
-        .from("vendor_admins")
-        .select("vendor_id")
-        .eq("email", account.email)
-        .limit(1)
-        .maybeSingle();
-      if (!admin) {
-        if (active) setState("no-access");
-        return;
-      }
-
-      const [{ data: vendorRow }, { data: settlementRows }] = await Promise.all([
-        supabase
-          .from("vendors")
-          .select("id, name, theme_logo_emoji, orders_last_30d, revenue_last_30d")
-          .eq("id", admin.vendor_id)
-          .single(),
-        supabase
-          .from("settlements")
-          .select("month, orders_count, gross_revenue, platform_fee")
-          .eq("vendor_id", admin.vendor_id)
-          .order("month", { ascending: true })
-          .limit(6),
-      ]);
+      const { data: settlementRows } = await supabase
+        .from("settlements")
+        .select("month, orders_count, gross_revenue, platform_fee")
+        .eq("vendor_id", state.vendor.id)
+        .order("month", { ascending: true })
+        .limit(6);
       if (!active) return;
 
-      if (!vendorRow) {
-        setState("no-access");
-        return;
-      }
-
-      const v = vendorRow as VendorRow;
       const settlements = (settlementRows ?? []) as SettlementRow[];
-      const latest = settlements[settlements.length - 1];
+      const latest = settlements[settlements.length - 1] ?? null;
       const previous = settlements[settlements.length - 2];
-      const growth =
-        latest && previous && previous.gross_revenue > 0
-          ? Math.round(((latest.gross_revenue - previous.gross_revenue) / previous.gross_revenue) * 100)
-          : 0;
-
-      setVendor({
-        name: v.name,
-        emoji: v.theme_logo_emoji,
-        revenueThisMonth: latest ? Number(latest.gross_revenue) : Number(v.revenue_last_30d),
-        ordersThisMonth: latest ? latest.orders_count : v.orders_last_30d,
-        platformFeeThisMonth: latest ? Number(latest.platform_fee) : 0,
-        growth,
-      });
-      setTrend(
-        settlements.map((s) => ({
-          month: MONTH_LABEL.format(new Date(s.month)),
-          revenue: Number(s.gross_revenue),
-        }))
-      );
-      setState("ready");
+      setLatestSettlement(latest);
+      setGrowth(latest && previous && previous.gross_revenue > 0 ? Math.round(((latest.gross_revenue - previous.gross_revenue) / previous.gross_revenue) * 100) : 0);
+      setTrend(settlements.map((s) => ({ month: MONTH_LABEL.format(new Date(s.month)), revenue: Number(s.gross_revenue) })));
     })();
     return () => {
       active = false;
     };
-  }, []);
+  }, [state]);
 
-  if (state === "loading") return null;
+  if (state.status === "loading") return null;
 
-  if (state === "no-access" || !vendor) {
+  if (state.status === "no-access") {
     return (
       <div className="mx-auto max-w-md px-5 py-24 text-center">
         <p className="text-sm text-[var(--text-muted)]">You need to be signed in as a vendor admin to see this page.</p>
@@ -126,14 +63,16 @@ export default function VendorDashboardPage() {
     );
   }
 
+  const vendor = state.vendor;
+  const revenueThisMonth = latestSettlement ? Number(latestSettlement.gross_revenue) : Number(vendor.revenue_last_30d);
+  const ordersThisMonth = latestSettlement ? latestSettlement.orders_count : vendor.orders_last_30d;
+  const platformFeeThisMonth = latestSettlement ? Number(latestSettlement.platform_fee) : 0;
+
   return (
-    <div className="mx-auto max-w-4xl px-5 py-14 lg:py-20">
+    <div className="mx-auto max-w-4xl px-5 py-8 lg:py-10">
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="flex items-center gap-4">
-        <div
-          className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl"
-          style={{ background: "var(--accent-gradient-soft)" }}
-        >
-          {vendor.emoji}
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl text-2xl" style={{ background: "var(--accent-gradient-soft)" }}>
+          {vendor.theme_logo_emoji}
         </div>
         <div>
           <p className="text-xs text-[var(--text-faint)]">Welcome back</p>
@@ -143,9 +82,9 @@ export default function VendorDashboardPage() {
 
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
         {[
-          { label: "Revenue this month", value: vendor.revenueThisMonth, prefix: "Rs ", icon: Wallet, tone: "violet" as const },
-          { label: "Orders this month", value: vendor.ordersThisMonth, prefix: "", icon: ShoppingBag, tone: "amber" as const },
-          { label: "Platform fee this month", value: vendor.platformFeeThisMonth, prefix: "Rs ", icon: TrendingUp, tone: "violet" as const },
+          { label: "Revenue this month", value: revenueThisMonth, prefix: "Rs ", icon: Wallet, tone: "violet" as const },
+          { label: "Orders this month", value: ordersThisMonth, prefix: "", icon: ShoppingBag, tone: "amber" as const },
+          { label: "Platform fee this month", value: platformFeeThisMonth, prefix: "Rs ", icon: TrendingUp, tone: "violet" as const },
         ].map((stat, i) => (
           <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}>
             <TiltCard strength={5} className="p-5">
@@ -172,7 +111,7 @@ export default function VendorDashboardPage() {
               <p className="text-sm font-semibold text-[var(--text)]">Revenue trend</p>
               <p className="text-xs text-[var(--text-faint)]">Last 6 months</p>
             </div>
-            <span className="text-xs font-semibold text-[var(--success)]">↑ {vendor.growth}% vs last month</span>
+            <span className="text-xs font-semibold text-[var(--success)]">↑ {growth}% vs last month</span>
           </div>
           {trend.length > 0 ? (
             <ResponsiveContainer width="100%" height={220}>
