@@ -14,6 +14,9 @@ const COLUMNS = [
       { label: "Rewards & Referrals", href: "/rewards" },
       { label: "Influencer Program", href: "/influencers" },
       { label: "Updates", href: "/updates" },
+      { label: "Blog", href: "/blog" },
+      { label: "Compare", href: "/compare" },
+      { label: "Case study: TheAamGhar", href: "/case-study/theaamghar" },
     ],
   },
   {
