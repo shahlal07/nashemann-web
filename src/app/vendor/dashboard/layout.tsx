@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Store, Wallet, Ticket, MessageSquare, Users, KeyRound, Webhook, Package, ShoppingBag } from "lucide-react";
+import { LayoutDashboard, Store, Wallet, Ticket, MessageSquare, Users, KeyRound, Webhook, Package, ShoppingBag, CreditCard } from "lucide-react";
 import { VendorSessionProvider, useVendorSessionContext } from "@/lib/vendor-session-context";
 import { cn } from "@/lib/utils";
 
@@ -11,6 +11,7 @@ const TABS = [
   { href: "/vendor/dashboard/profile", label: "Store profile", icon: Store },
   { href: "/vendor/dashboard/products", label: "Products", icon: Package },
   { href: "/vendor/dashboard/orders", label: "Orders", icon: ShoppingBag },
+  { href: "/vendor/dashboard/payment", label: "Payment methods", icon: CreditCard },
   { href: "/vendor/dashboard/settlements", label: "Settlements", icon: Wallet },
   { href: "/vendor/dashboard/coupons", label: "Coupons", icon: Ticket },
   { href: "/vendor/dashboard/reviews", label: "Reviews", icon: MessageSquare },
