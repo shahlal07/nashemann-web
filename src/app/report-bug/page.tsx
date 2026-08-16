@@ -28,14 +28,22 @@ export default function ReportBugPage() {
     const formData = new FormData(e.currentTarget);
     setSubmitting(true);
     try {
+      const title = String(formData.get("title") ?? "").slice(0, 80) || "Bug report";
+      const reporterName = String(formData.get("name") ?? "");
+      const reporterEmail = String(formData.get("email") ?? "");
       await submitBugReport({
-        title: String(formData.get("title") ?? "").slice(0, 80) || "Bug report",
+        title,
         description: String(formData.get("description") ?? ""),
-        reporterName: String(formData.get("name") ?? ""),
-        reporterEmail: String(formData.get("email") ?? ""),
+        reporterName,
+        reporterEmail,
         screenshotFile,
       });
       setSent(true);
+      fetch("/api/notifications/bug-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ title, reporterName, reporterEmail }),
+      }).catch(() => {});
     } finally {
       setSubmitting(false);
     }

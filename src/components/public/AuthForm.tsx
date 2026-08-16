@@ -96,6 +96,9 @@ export function AuthForm({
       if (data.session && data.user) {
         // Email confirmation is off (or already confirmed) -- a session exists
         // immediately, so the platform_accounts row can be created right away.
+        const isNewAccount = !(
+          await supabase.from("platform_accounts").select("id").eq("id", data.user.id).maybeSingle()
+        ).data;
         const { error: upsertError } = await supabase
           .from("platform_accounts")
           .upsert({ id: data.user.id, name, email, phone, provider: "email" });
@@ -103,6 +106,9 @@ export function AuthForm({
           setLoading(false);
           setError(upsertError.message);
           return;
+        }
+        if (isNewAccount) {
+          fetch("/api/notifications/welcome", { method: "POST" }).catch(() => {});
         }
         setLoading(false);
         router.push(destinationFor("vendor"));
@@ -128,6 +134,9 @@ export function AuthForm({
         return;
       }
       const meta = data.user.user_metadata as { name?: string; phone?: string };
+      const isNewAccount = !(
+        await supabase.from("platform_accounts").select("id").eq("id", data.user.id).maybeSingle()
+      ).data;
       const { error: upsertError } = await supabase.from("platform_accounts").upsert({
         id: data.user.id,
         name: meta.name ?? data.user.email ?? "",
@@ -139,6 +148,9 @@ export function AuthForm({
       if (upsertError) {
         setError(upsertError.message);
         return;
+      }
+      if (isNewAccount) {
+        fetch("/api/notifications/welcome", { method: "POST" }).catch(() => {});
       }
       router.push(destinationFor("vendor"));
     } else {

@@ -121,6 +121,7 @@ export function StorefrontClient({
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
+  const [email, setEmail] = useState("");
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
   const [screenshotPreview, setScreenshotPreview] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -221,6 +222,7 @@ export function StorefrontClient({
         customerName: name.trim(),
         customerPhone: phone.trim(),
         customerAddress: address.trim(),
+        customerEmail: email.trim() || undefined,
         items,
         totalAmount,
         paymentMethod: primaryPaymentMethod?.method ?? "easypaisa",
@@ -229,6 +231,21 @@ export function StorefrontClient({
 
       setConfirmedOrderId(orderId);
       setCart([]);
+
+      fetch("/api/notifications/storefront-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          vendorId: vendor.id,
+          orderId,
+          customerName: name.trim(),
+          customerPhone: phone.trim(),
+          customerAddress: address.trim(),
+          customerEmail: email.trim() || undefined,
+          items: items.map((i) => ({ name: i.name, qty: i.qty, unitPrice: i.unitPrice + (i.selectedOptions[0]?.extraCharge ?? 0) })),
+          totalAmount,
+        }),
+      }).catch(() => {});
     } catch {
       setFormError("Something went wrong placing your order. Please try again.");
     } finally {
@@ -400,6 +417,14 @@ export function StorefrontClient({
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder="Complete delivery address"
                 rows={2}
+                className="w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none"
+                style={{ borderColor: "color-mix(in srgb, var(--store-accent) 40%, transparent)", color: "#1a1a1a" }}
+              />
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Email (optional, for order confirmation)"
                 className="w-full rounded-xl border bg-white px-4 py-2.5 text-sm outline-none"
                 style={{ borderColor: "color-mix(in srgb, var(--store-accent) 40%, transparent)", color: "#1a1a1a" }}
               />

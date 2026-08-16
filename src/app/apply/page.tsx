@@ -162,6 +162,11 @@ function ApplyPageInner() {
       });
       clearPendingApplication();
       setResult(record);
+      fetch("/api/notifications/application-submitted", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ referenceId: record.referenceId }),
+      }).catch(() => {});
     } finally {
       setSubmitting(false);
     }
@@ -342,7 +347,7 @@ function ApplyPageInner() {
                         {subdomainStatus === "checking" && <Loader2 size={13} className="animate-spin" />}
                         {subdomainStatus === "available" && <Check size={13} className="text-[var(--success)]" />}
                         {subdomainStatus === "taken" && <X size={13} className="text-[var(--danger)]" />}
-                        .nashemann.com
+                        .nashemann.store
                       </span>
                     </div>
                     {subdomainFormatError && <p className="mt-1.5 text-xs text-[var(--danger)]">{subdomainFormatError}</p>}

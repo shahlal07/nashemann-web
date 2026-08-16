@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { sendAccountDeletionConfirmationEmail } from "@/lib/email";
 
 /**
  * GDPR-style "delete my account". Forwards the caller's own session access
@@ -17,6 +18,9 @@ export async function POST() {
   if (!session) {
     return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
   }
+
+  // Captured before the account row is gone -- the edge function deletes it.
+  const { data: account } = await supabase.from("platform_accounts").select("name, email").eq("id", session.user.id).maybeSingle();
 
   const functionsUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/delete-account`;
   const res = await fetch(functionsUrl, {
@@ -36,6 +40,11 @@ export async function POST() {
 
   // Sign out locally too so no stale session cookie lingers for the now-deleted user.
   await supabase.auth.signOut();
+
+  const email = account?.email ?? session.user.email;
+  if (email) {
+    await sendAccountDeletionConfirmationEmail({ to: email, name: account?.name ?? "there" });
+  }
 
   return NextResponse.json({ success: true }, { status: 200 });
 }

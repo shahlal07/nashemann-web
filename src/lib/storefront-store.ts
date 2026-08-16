@@ -198,6 +198,7 @@ export async function submitStorefrontOrder(input: {
   customerName: string;
   customerPhone: string;
   customerAddress: string;
+  customerEmail?: string;
   items: StorefrontOrderItem[];
   totalAmount: number;
   paymentMethod: string;
@@ -212,6 +213,7 @@ export async function submitStorefrontOrder(input: {
     customer_name: input.customerName,
     customer_phone: input.customerPhone,
     customer_address: input.customerAddress,
+    customer_email: input.customerEmail || null,
     items: input.items,
     total_amount: input.totalAmount,
     payment_method: input.paymentMethod,
