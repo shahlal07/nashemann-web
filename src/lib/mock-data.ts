@@ -381,6 +381,7 @@ export type ShowcaseVendor = {
   accentFrom: string;
   accentTo: string;
   joinedAt: string;
+  whiteLabelEnabled: boolean;
 };
 
 type VendorRow = {
@@ -396,6 +397,7 @@ type VendorRow = {
   theme_accent_from: string;
   theme_accent_to: string;
   joined_at: string;
+  white_label_enabled: boolean;
 };
 
 /** Active vendor rows for the homepage showcase -- real rows only, no fallback to MOCK_VENDORS. */
@@ -404,7 +406,7 @@ export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
   const { data, error } = await supabase
     .from("vendors")
     .select(
-      "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at"
+      "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at, white_label_enabled"
     )
     .eq("status", "active")
     .order("joined_at", { ascending: false })
@@ -423,6 +425,7 @@ export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
     accentFrom: v.theme_accent_from,
     accentTo: v.theme_accent_to,
     joinedAt: v.joined_at,
+    whiteLabelEnabled: v.white_label_enabled,
   }));
 }
 

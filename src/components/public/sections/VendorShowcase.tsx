@@ -8,7 +8,7 @@ import { TiltCard } from "../TiltCard";
 import { getShowcaseVendors, type ShowcaseVendor } from "@/lib/mock-data";
 
 function storeUrl(v: ShowcaseVendor): string {
-  return v.customDomain ? `https://${v.customDomain}` : `https://${v.subdomain}.nashemann.com`;
+  return v.customDomain ? `https://${v.customDomain}` : `/store/${v.subdomain}`;
 }
 
 function VendorCard({ v, i }: { v: ShowcaseVendor; i: number }) {
@@ -27,14 +27,24 @@ function VendorCard({ v, i }: { v: ShowcaseVendor; i: number }) {
           >
             {v.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={v.logoUrl} alt={v.name} className="h-full w-full rounded-2xl object-cover" />
+              <img
+                src={v.logoUrl}
+                alt={v.name}
+                loading="lazy"
+                decoding="async"
+                width={48}
+                height={48}
+                className="h-full w-full rounded-2xl object-cover"
+              />
             ) : (
               v.logoEmoji
             )}
           </div>
-          <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-2.5 py-1 text-[0.65rem] font-medium text-[var(--text-faint)]">
-            <Sparkles size={10} className="text-[var(--accent-amber)]" /> Powered by Nashemann
-          </span>
+          {!v.whiteLabelEnabled && (
+            <span className="inline-flex items-center gap-1 rounded-full border border-[var(--border-strong)] bg-[var(--surface)] px-2.5 py-1 text-[0.65rem] font-medium text-[var(--text-faint)]">
+              <Sparkles size={10} className="text-[var(--accent-amber)]" /> Powered by Nashemann
+            </span>
+          )}
         </div>
 
         <h3 className="font-display mt-4 text-lg font-semibold text-[var(--text)]">{v.name}</h3>
