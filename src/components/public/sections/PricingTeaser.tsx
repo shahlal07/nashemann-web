@@ -14,7 +14,7 @@ export function PricingTeaser() {
   const [pricing, setPricing] = useState<PlatformPricing>(DEFAULT_PRICING);
 
   useEffect(() => {
-    getPlatformPricing().then(setPricing);
+    getPlatformPricing().then(setPricing).catch(() => {});
   }, []);
 
   const PLANS = [

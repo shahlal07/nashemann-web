@@ -103,7 +103,6 @@ html[data-theme="light"] {
 body {
   background: var(--bg);
   background-image: var(--bg-radial);
-  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   overflow-x: hidden;
@@ -146,6 +145,15 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--border);
+}
+
+/* Disable backdrop-filter on mobile (hover:none) — it causes GPU
+   compositing failures on iOS Safari and some Android browsers. */
+@media (hover: none) {
+  .glass-panel {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
 }
 
 .accent-text {

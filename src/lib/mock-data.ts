@@ -402,31 +402,35 @@ type VendorRow = {
 
 /** Active vendor rows for the homepage showcase -- real rows only, no fallback to MOCK_VENDORS. */
 export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("vendors")
-    .select(
-      "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at, white_label_enabled"
-    )
-    .eq("status", "active")
-    .order("joined_at", { ascending: false })
-    .limit(limit);
-  if (error || !data) return [];
-  return (data as VendorRow[]).map((v) => ({
-    id: v.id,
-    name: v.name,
-    subdomain: v.subdomain,
-    customDomain: v.custom_domain,
-    category: v.category,
-    city: v.city,
-    ordersLast30d: v.orders_last_30d,
-    logoEmoji: v.theme_logo_emoji,
-    logoUrl: v.theme_logo_url,
-    accentFrom: v.theme_accent_from,
-    accentTo: v.theme_accent_to,
-    joinedAt: v.joined_at,
-    whiteLabelEnabled: v.white_label_enabled,
-  }));
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase
+      .from("vendors")
+      .select(
+        "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at, white_label_enabled"
+      )
+      .eq("status", "active")
+      .order("joined_at", { ascending: false })
+      .limit(limit);
+    if (error || !data) return [];
+    return (data as VendorRow[]).map((v) => ({
+      id: v.id,
+      name: v.name,
+      subdomain: v.subdomain,
+      customDomain: v.custom_domain,
+      category: v.category,
+      city: v.city,
+      ordersLast30d: v.orders_last_30d,
+      logoEmoji: v.theme_logo_emoji,
+      logoUrl: v.theme_logo_url,
+      accentFrom: v.theme_accent_from,
+      accentTo: v.theme_accent_to,
+      joinedAt: v.joined_at,
+      whiteLabelEnabled: v.white_label_enabled,
+    }));
+  } catch {
+    return [];
+  }
 }
 
 export type PlatformLiveStats = {
@@ -437,18 +441,22 @@ export type PlatformLiveStats = {
 
 /** Live counts for the hero stat row -- replaces the seeded `site_content.hero.stats` numbers so the homepage never overstates real scale. */
 export async function getPlatformLiveStats(): Promise<PlatformLiveStats | null> {
-  const supabase = createClient();
-  const [vendorsRes, applicationsRes] = await Promise.all([
-    supabase.from("vendors").select("orders_last_30d").eq("status", "active"),
-    supabase.from("vendor_applications").select("id", { count: "exact", head: true }).eq("status", "pending"),
-  ]);
-  if (vendorsRes.error) return null;
-  const rows = (vendorsRes.data ?? []) as { orders_last_30d: number }[];
-  return {
-    activeVendors: rows.length,
-    ordersLast30d: rows.reduce((sum, r) => sum + (r.orders_last_30d ?? 0), 0),
-    pendingApplications: applicationsRes.count ?? 0,
-  };
+  try {
+    const supabase = createClient();
+    const [vendorsRes, applicationsRes] = await Promise.all([
+      supabase.from("vendors").select("orders_last_30d").eq("status", "active"),
+      supabase.from("vendor_applications").select("id", { count: "exact", head: true }).eq("status", "pending"),
+    ]);
+    if (vendorsRes.error) return null;
+    const rows = (vendorsRes.data ?? []) as { orders_last_30d: number }[];
+    return {
+      activeVendors: rows.length,
+      ordersLast30d: rows.reduce((sum, r) => sum + (r.orders_last_30d ?? 0), 0),
+      pendingApplications: applicationsRes.count ?? 0,
+    };
+  } catch {
+    return null;
+  }
 }
 
 let cachedPricing: Promise<PlatformPricing> | null = null;
@@ -457,18 +465,22 @@ let cachedPricing: Promise<PlatformPricing> | null = null;
 export function getPlatformPricing(): Promise<PlatformPricing> {
   if (!cachedPricing) {
     cachedPricing = (async () => {
-      const supabase = createClient();
-      const { data, error } = await supabase
-        .from("platform_pricing")
-        .select("per_order_fee, monthly_fee, monthly_break_even_orders, custom_domain_fee")
-        .single();
-      if (error || !data) return DEFAULT_PRICING;
-      return {
-        perOrderFee: Number(data.per_order_fee),
-        monthlyFee: Number(data.monthly_fee),
-        monthlyBreakEvenOrders: data.monthly_break_even_orders,
-        customDomainFee: Number(data.custom_domain_fee),
-      };
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from("platform_pricing")
+          .select("per_order_fee, monthly_fee, monthly_break_even_orders, custom_domain_fee")
+          .single();
+        if (error || !data) return DEFAULT_PRICING;
+        return {
+          perOrderFee: Number(data.per_order_fee),
+          monthlyFee: Number(data.monthly_fee),
+          monthlyBreakEvenOrders: data.monthly_break_even_orders,
+          customDomainFee: Number(data.custom_domain_fee),
+        };
+      } catch {
+        return DEFAULT_PRICING;
+      }
     })();
   }
   return cachedPricing;

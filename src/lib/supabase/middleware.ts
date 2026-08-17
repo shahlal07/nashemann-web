@@ -24,7 +24,13 @@ export async function updateSession(request: NextRequest, rewriteUrl?: URL) {
     }
   );
 
-  await supabase.auth.getUser();
+  try {
+    await supabase.auth.getUser();
+  } catch {
+    // Session refresh failure (e.g. invalid/expired token, cross-project
+    // cookie conflict) must not crash the page -- fall through with the
+    // current response so the page renders in an unauthenticated state.
+  }
 
   return supabaseResponse;
 }

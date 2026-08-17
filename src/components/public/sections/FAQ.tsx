@@ -11,7 +11,7 @@ function FaqList() {
   const [pricing, setPricing] = useState<PlatformPricing>(DEFAULT_FAQ_PRICING);
 
   useEffect(() => {
-    getPlatformPricing().then(setPricing);
+    getPlatformPricing().then(setPricing).catch(() => {});
   }, []);
 
   const faqs = buildFaqs(pricing);

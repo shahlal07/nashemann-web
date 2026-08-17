@@ -82,7 +82,7 @@ export function VendorShowcase() {
     let active = true;
     getShowcaseVendors().then((v) => {
       if (active) setVendors(v);
-    });
+    }).catch(() => {});
     return () => {
       active = false;
     };

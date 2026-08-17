@@ -26,9 +26,13 @@ export function Hero() {
 
   useEffect(() => {
     let active = true;
-    getPlatformLiveStats().then((stats) => {
-      if (active) setLiveStats(stats);
-    });
+    getPlatformLiveStats()
+      .then((stats) => {
+        if (active) setLiveStats(stats);
+      })
+      .catch(() => {
+        /* stay on defaults */
+      });
     return () => {
       active = false;
     };

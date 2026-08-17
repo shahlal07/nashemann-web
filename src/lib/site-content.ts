@@ -174,21 +174,27 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
 let cached: Promise<SiteContent> | null = null;
 
 async function fetchSiteContent(): Promise<SiteContent> {
-  const supabase = createClient();
-  const { data, error } = await supabase.from("site_content").select("key, value");
-  if (error || !data) return SITE_CONTENT_DEFAULTS;
-  const map = new Map(data.map((row) => [row.key as string, row.value]));
-  return {
-    hero: (map.get("hero") as HeroContent) ?? SITE_CONTENT_DEFAULTS.hero,
-    how_it_works: (map.get("how_it_works") as HowItWorksItem[]) ?? SITE_CONTENT_DEFAULTS.how_it_works,
-    features: (map.get("features") as FeatureItem[]) ?? SITE_CONTENT_DEFAULTS.features,
-    testimonials: (map.get("testimonials") as TestimonialItem[]) ?? SITE_CONTENT_DEFAULTS.testimonials,
-    rewards: (map.get("rewards") as RewardsContent) ?? SITE_CONTENT_DEFAULTS.rewards,
-    contact: (map.get("contact") as ContactContent) ?? SITE_CONTENT_DEFAULTS.contact,
-    social_links: (map.get("social_links") as SocialLinks) ?? SITE_CONTENT_DEFAULTS.social_links,
-    promo_popup: (map.get("promo_popup") as PromoPopupContent) ?? SITE_CONTENT_DEFAULTS.promo_popup,
-    ai_support: (map.get("ai_support") as AiSupportContent) ?? SITE_CONTENT_DEFAULTS.ai_support,
-  };
+  try {
+    const supabase = createClient();
+    const { data, error } = await supabase.from("site_content").select("key, value");
+    if (error || !data) return SITE_CONTENT_DEFAULTS;
+    const map = new Map(data.map((row) => [row.key as string, row.value]));
+    return {
+      hero: (map.get("hero") as HeroContent) ?? SITE_CONTENT_DEFAULTS.hero,
+      how_it_works: (map.get("how_it_works") as HowItWorksItem[]) ?? SITE_CONTENT_DEFAULTS.how_it_works,
+      features: (map.get("features") as FeatureItem[]) ?? SITE_CONTENT_DEFAULTS.features,
+      testimonials: (map.get("testimonials") as TestimonialItem[]) ?? SITE_CONTENT_DEFAULTS.testimonials,
+      rewards: (map.get("rewards") as RewardsContent) ?? SITE_CONTENT_DEFAULTS.rewards,
+      contact: (map.get("contact") as ContactContent) ?? SITE_CONTENT_DEFAULTS.contact,
+      social_links: (map.get("social_links") as SocialLinks) ?? SITE_CONTENT_DEFAULTS.social_links,
+      promo_popup: (map.get("promo_popup") as PromoPopupContent) ?? SITE_CONTENT_DEFAULTS.promo_popup,
+      ai_support: (map.get("ai_support") as AiSupportContent) ?? SITE_CONTENT_DEFAULTS.ai_support,
+    };
+  } catch {
+    // Supabase client creation or network failure — gracefully degrade to
+    // the hardcoded defaults so the page always renders.
+    return SITE_CONTENT_DEFAULTS;
+  }
 }
 
 export function getSiteContent(): Promise<SiteContent> {
@@ -201,9 +207,13 @@ export function useSiteContent<K extends keyof SiteContent>(key: K): SiteContent
   const [value, setValue] = useState<SiteContent[K]>(SITE_CONTENT_DEFAULTS[key]);
   useEffect(() => {
     let active = true;
-    getSiteContent().then((content) => {
-      if (active) setValue(content[key]);
-    });
+    getSiteContent()
+      .then((content) => {
+        if (active) setValue(content[key]);
+      })
+      .catch(() => {
+        /* stay on defaults */
+      });
     return () => {
       active = false;
     };
