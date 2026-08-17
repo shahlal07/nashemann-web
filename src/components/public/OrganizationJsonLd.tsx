@@ -9,7 +9,7 @@ const SITE_URL = "https://nashemann-web.vercel.app";
 const FALLBACK_CONTACT: ContactContent = {
   whatsappNumber: "923001234567",
   whatsappDisplay: "+92 300 1234567",
-  supportEmail: "hello@nashemann.com",
+  supportEmail: "hello@nashemann.store",
   phoneDisplay: "+92 42 1234 5678",
   phoneHref: "tel:+924212345678",
   address: "Gulberg III, Lahore, Pakistan",

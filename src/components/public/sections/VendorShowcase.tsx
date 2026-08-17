@@ -8,7 +8,10 @@ import { TiltCard } from "../TiltCard";
 import { getShowcaseVendors, type ShowcaseVendor } from "@/lib/mock-data";
 
 function storeUrl(v: ShowcaseVendor): string {
-  return v.customDomain ? `https://${v.customDomain}` : `/store/${v.subdomain}`;
+  const customDomain = v.customDomain?.trim();
+  if (customDomain) return /^https?:\/\//i.test(customDomain) ? customDomain : `https://${customDomain}`;
+  const rootDomain = process.env.NEXT_PUBLIC_PLATFORM_ROOT_DOMAIN || "nashemann.store";
+  return `https://${v.subdomain}.${rootDomain}`;
 }
 
 function VendorCard({ v, i }: { v: ShowcaseVendor; i: number }) {

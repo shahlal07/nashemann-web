@@ -21,9 +21,9 @@ found and fixed on the `orders` table while onboarding her.
 
 ### A real architecture correction happened mid-build (2026-08-16)
 
-Earlier the same night, a `/store/[slug]` route was built directly inside
+Earlier the same night, a `vendor storefront deployment` route was built directly inside
 `src/app/store/` — a full storefront-with-checkout implementation backed by
-new tables (`storefront_products`, `storefront_orders`,
+new tables (`vendor-side product tables`, `vendor-side order tables`,
 `vendor_payment_methods`) in *this* app's own database. **That was a
 mistake, corrected the same session.** It duplicated what `theaamghar-web`
 already does properly, and would have meant every future vendor needing a
@@ -31,15 +31,15 @@ second, parallel, less-mature storefront system. Mina Cafe was briefly
 provisioned through it before being properly re-onboarded on
 `theaamghar-web` instead.
 
-**Those `/store/[slug]` files and tables are not yet deleted** — check
-`src/app/store/`, `storefront_products`/`storefront_orders`/
+**Those `vendor storefront deployment` files and tables are not yet deleted** — check
+`src/app/store/`, `vendor-side product tables`/`vendor-side order tables`/
 `vendor_payment_methods` in `mztayodmvdpzzwzznsvu`, and the vendor
 dashboard subpages built against them
 (`src/app/vendor/dashboard/{products,orders,payment}`) before assuming
 they're either (a) safe to delete outright, since something might still
 link to them, or (b) the real system, since they aren't. Treat this as
 known cleanup debt: confirm nothing user-facing still points at
-`/store/[slug]` (the homepage vendor directory was already repointed to
+`vendor storefront deployment` (the homepage vendor directory was already repointed to
 `{vendor.subdomain}.nashemann.store` — verify that's still true before
 assuming the old route is fully orphaned), then remove the dead code and
 tables in one pass rather than leaving both systems half-alive
@@ -59,7 +59,7 @@ indefinitely.
   Nashemann-side listing, referrals, loyalty) — but NOT product/order
   management, which now belongs on `theaamghar-admin` instead (the
   `products`/`orders` dashboard subpages built against the deprecated
-  `/store/[slug]` schema should eventually point vendors at
+  `vendor storefront deployment` schema should eventually point vendors at
   `theaamghar-admin` instead, or be removed as part of the cleanup above).
 - RBAC, audit trail, API keys, webhooks, GDPR export/delete, real Resend
   email wiring (application confirmations, approval/rejection notices,

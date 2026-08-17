@@ -63,7 +63,7 @@ export default function PricingPage() {
   ];
 
   const ADDONS = [
-    { name: "Custom domain", price: formatPKR(pricing.customDomainFee), note: "One-time — yourstore.pk instead of yourstore.nashemann.com" },
+    { name: "Custom domain", price: formatPKR(pricing.customDomainFee), note: "One-time — yourstore.pk instead of yourstore.nashemann.store" },
   ];
 
   return (

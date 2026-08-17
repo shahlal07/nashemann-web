@@ -28,7 +28,7 @@ export function buildFaqs(pricing: PlatformPricing) {
     },
     {
       q: "Can I use my own domain instead of a Nashemann subdomain?",
-      a: `Yes — a custom domain (e.g. yourstore.pk instead of yourstore.nashemann.com) is a one-time ${formatPKR(pricing.customDomainFee)} add-on, connected from your admin panel.`,
+      a: `Yes — a custom domain (e.g. yourstore.pk instead of yourstore.nashemann.store) is a one-time ${formatPKR(pricing.customDomainFee)} add-on, connected from your admin panel.`,
     },
     {
       q: "I currently sell over WhatsApp or Instagram DMs — can I still apply?",
