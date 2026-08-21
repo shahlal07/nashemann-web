@@ -1,162 +1,68 @@
-"use client";
+import { redirect } from "next/navigation";
+import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-import { motion } from "framer-motion";
-import { Wallet, Store, Percent, Copy, Share2, UserPlus, Clock } from "lucide-react";
-import { useEffect, useState } from "react";
-import { TiltCard } from "@/components/public/TiltCard";
-import { StatCounter } from "@/components/public/StatCounter";
-import { VendorStatusBadge, Badge } from "@/components/ui/Badge";
-import { getInfluencerDashboard, type InfluencerDashboard } from "@/lib/mock-data";
-import { getApplicationsByReferralCode, type StoredApplication } from "@/lib/application-store";
-import { formatDate } from "@/lib/utils";
+function money(value: number) {
+  return new Intl.NumberFormat("en-PK", { style: "currency", currency: "PKR", maximumFractionDigits: 0 }).format(value);
+}
 
-// The influencer dashboard is reached by referral code, not a real
-// per-influencer login yet (see AuthForm.tsx) -- this is the demo
-// influencer seeded alongside the platform's other demo content.
-const DEMO_REFERRAL_CODE = "HANIA30";
+export default async function InfluencerDashboardPage() {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) redirect("/login?error=not_influencer");
 
-export default function InfluencerDashboardPage() {
-  const [copied, setCopied] = useState(false);
-  const [dashboard, setDashboard] = useState<InfluencerDashboard | null>(null);
-  const [referredApplications, setReferredApplications] = useState<StoredApplication[]>([]);
-  const referralLink = typeof window !== "undefined" ? `${window.location.origin}/apply?ref=${DEMO_REFERRAL_CODE}` : "";
+  const admin = createAdminClient();
+  const { data: influencer } = await admin
+    .from("influencers")
+    .select("id,name,email,social_handle,platform,follower_count,referral_code,cut_percent,status,joined_at")
+    .eq("account_id", user.id)
+    .maybeSingle();
 
-  useEffect(() => {
-    getInfluencerDashboard(DEMO_REFERRAL_CODE).then(setDashboard);
-    getApplicationsByReferralCode(DEMO_REFERRAL_CODE).then(setReferredApplications);
-  }, []);
+  if (!influencer) redirect("/login?error=influencer_profile_missing");
 
-  function copyCode() {
-    if (!dashboard) return;
-    navigator.clipboard?.writeText(dashboard.influencer.referralCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  }
+  const { data: applications } = await admin
+    .from("vendor_applications")
+    .select("reference_id,business_name,city,status,submitted_at,requested_plan,referral_code")
+    .eq("referral_code", influencer.referral_code)
+    .order("submitted_at", { ascending: false });
 
-  async function shareLink() {
-    const link = `${window.location.origin}/apply?ref=${DEMO_REFERRAL_CODE}`;
-    if (navigator.share) {
-      try {
-        await navigator.share({ title: "Start your store on Nashemann", url: link });
-        return;
-      } catch {
-        // user cancelled the native share sheet -- fall through to clipboard copy
-      }
-    }
-    navigator.clipboard?.writeText(link);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
-  }
+  const { data: referredOrders } = await admin
+    .from("orders")
+    .select("total,referral_code,vendor_id")
+    .eq("referral_code", influencer.referral_code);
 
-  if (!dashboard) return null;
-  const { influencer, referredVendors, platformRevenueGenerated, influencerEarnings } = dashboard;
+  const revenue = (referredOrders ?? []).reduce((sum, order) => sum + Number(order.total ?? 0), 0);
+  const earnings = revenue * Number(influencer.cut_percent ?? 0) / 100;
 
   return (
-    <div className="mx-auto max-w-4xl px-5 py-14 lg:py-20">
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
-        <p className="text-xs text-[var(--text-faint)]">Welcome back</p>
-        <h1 className="font-display text-2xl font-semibold text-[var(--text)]">{influencer.name}</h1>
-        <p className="mt-1 text-sm text-[var(--text-muted)]">
-          {influencer.socialHandle} · {influencer.platform}
-        </p>
-      </motion.div>
-
-      <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {[
-          { label: "Businesses referred", value: referredVendors.length, prefix: "", icon: Store },
-          { label: "Platform revenue generated", value: platformRevenueGenerated, prefix: "Rs ", icon: Wallet },
-          { label: `Your earnings (${influencer.cutPercent}%)`, value: influencerEarnings, prefix: "Rs ", icon: Percent },
-        ].map((stat, i) => (
-          <motion.div key={stat.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 + i * 0.08 }}>
-            <TiltCard strength={5} className="p-5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg" style={{ background: "rgba(139,107,255,0.14)", color: "var(--accent-violet)" }}>
-                <stat.icon size={16} />
-              </div>
-              <p className="mt-3 text-xs font-medium text-[var(--text-muted)]">{stat.label}</p>
-              <p className="font-display mt-1 text-2xl font-semibold text-[var(--text)]">
-                {stat.prefix}
-                <StatCounter value={stat.value} />
-              </p>
-            </TiltCard>
-          </motion.div>
-        ))}
+    <main className="mx-auto max-w-5xl px-5 py-14 lg:py-20">
+      <div className="flex flex-wrap items-start justify-between gap-4">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[var(--accent-violet)]">Nashemann Influencer</p>
+          <h1 className="mt-2 text-3xl font-semibold text-[var(--text)]">Welcome, {influencer.name}</h1>
+          <p className="mt-1 text-sm text-[var(--text-muted)]">{influencer.social_handle} · {influencer.platform} · {influencer.status}</p>
+        </div>
+        <Link href="/" className="rounded-full border border-[var(--border)] px-4 py-2 text-xs font-semibold text-[var(--text-muted)] hover:text-[var(--text)]">Back to Nashemann</Link>
       </div>
 
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="mt-6">
-        <TiltCard strength={2} glare={false} className="p-6">
-          <p className="text-xs text-[var(--text-faint)]">Your referral code</p>
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <span className="font-display text-2xl font-bold tracking-wider text-[var(--text)]">{influencer.referralCode}</span>
-            <div className="flex gap-2">
-              <button onClick={copyCode} className="rounded-full border border-[var(--border-strong)] p-2 text-[var(--text-muted)] hover:text-[var(--text)]" aria-label="Copy code">
-                <Copy size={15} />
-              </button>
-              <button
-                onClick={shareLink}
-                className="flex items-center gap-1.5 rounded-full px-3 py-2 text-xs font-semibold text-black"
-                style={{ background: "var(--accent-gradient)" }}
-              >
-                <Share2 size={13} /> Share link
-              </button>
-            </div>
-          </div>
-          <p className="mt-2.5 truncate rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-3 py-2 text-xs text-[var(--text-faint)]">
-            {referralLink}
-          </p>
-          {copied && <p className="mt-1 text-xs text-[var(--success)]">Copied to clipboard</p>}
-        </TiltCard>
-      </motion.div>
+      <div className="mt-8 grid gap-4 sm:grid-cols-3">
+        <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5"><p className="text-xs text-[var(--text-faint)]">Businesses referred</p><p className="mt-2 text-3xl font-semibold text-[var(--text)]">{applications?.length ?? 0}</p></section>
+        <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5"><p className="text-xs text-[var(--text-faint)]">Platform revenue generated</p><p className="mt-2 text-3xl font-semibold text-[var(--text)]">{money(revenue)}</p></section>
+        <section className="rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5"><p className="text-xs text-[var(--text-faint)]">Your earnings ({Number(influencer.cut_percent ?? 0)}%)</p><p className="mt-2 text-3xl font-semibold text-[var(--text)]">{money(earnings)}</p></section>
+      </div>
 
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="mt-6">
-        <TiltCard strength={2} glare={false} className="p-6">
-          <p className="mb-3 text-sm font-semibold text-[var(--text)]">Businesses you referred</p>
-          <div className="divide-y divide-[var(--border)]">
-            {referredVendors.map((v) => (
-              <div key={v.id} className="flex items-center justify-between py-3">
-                <div className="flex items-center gap-3">
-                  <span className="text-lg">{v.logoEmoji}</span>
-                  <div>
-                    <p className="text-sm font-medium text-[var(--text)]">{v.name}</p>
-                    <p className="text-xs text-[var(--text-faint)]">Joined {formatDate(v.joinedAt)}</p>
-                  </div>
-                </div>
-                <VendorStatusBadge status={v.status} />
-              </div>
-            ))}
-            {referredVendors.length === 0 && (
-              <p className="py-6 text-center text-sm text-[var(--text-faint)]">No referrals yet — share your link to get started.</p>
-            )}
-          </div>
-        </TiltCard>
-      </motion.div>
+      <section className="mt-6 rounded-2xl border border-[var(--border)] bg-[var(--surface)] p-5">
+        <p className="text-xs text-[var(--text-faint)]">Your referral code</p>
+        <div className="mt-2 flex flex-wrap items-center gap-3"><code className="rounded-xl bg-[var(--surface-hover)] px-4 py-2 text-lg font-bold tracking-[0.2em] text-[var(--text)]">{influencer.referral_code}</code><span className="text-xs text-[var(--text-muted)]">Share it from your dashboard to bring new vendor applications.</span></div>
+      </section>
 
-      <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.5 }} className="mt-6">
-        <TiltCard strength={2} glare={false} className="p-6">
-          <p className="mb-3 flex items-center gap-1.5 text-sm font-semibold text-[var(--text)]">
-            <UserPlus size={15} className="text-[var(--accent-violet)]" /> Signed up through your link
-          </p>
-          <div className="divide-y divide-[var(--border)]">
-            {referredApplications.map((a) => (
-              <div key={a.referenceId} className="flex items-center justify-between py-3">
-                <div>
-                  <p className="text-sm font-medium text-[var(--text)]">{a.businessName}</p>
-                  <p className="flex items-center gap-1 text-xs text-[var(--text-faint)]">
-                    <Clock size={11} /> Applied {formatDate(a.submittedAt)}
-                  </p>
-                </div>
-                <Badge tone={a.status === "approved" ? "success" : a.status === "rejected" ? "danger" : "warning"} dot>
-                  {a.status.charAt(0).toUpperCase() + a.status.slice(1)}
-                </Badge>
-              </div>
-            ))}
-            {referredApplications.length === 0 && (
-              <p className="py-6 text-center text-sm text-[var(--text-faint)]">
-                No one has applied through your link yet — once they do, they&apos;ll show up here before they&apos;re even approved.
-              </p>
-            )}
-          </div>
-        </TiltCard>
-      </motion.div>
-    </div>
+      <section className="mt-6 overflow-hidden rounded-2xl border border-[var(--border)] bg-[var(--surface)]">
+        <div className="border-b border-[var(--border)] px-5 py-4"><h2 className="text-sm font-semibold text-[var(--text)]">Applications through your link</h2><p className="mt-1 text-xs text-[var(--text-faint)]">Live application records; no seeded demo rows are used here.</p></div>
+        {(applications?.length ?? 0) === 0 ? <div className="px-5 py-12 text-center text-sm text-[var(--text-muted)]">No referrals yet.</div> : <div className="divide-y divide-[var(--border)]">{applications!.map((app) => <div key={app.reference_id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4"><div><p className="text-sm font-semibold text-[var(--text)]">{app.business_name}</p><p className="text-xs text-[var(--text-faint)]">{app.city} · {new Date(app.submitted_at).toLocaleDateString("en-PK")}</p></div><span className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--text-muted)]">{app.status}</span></div>)}</div>}
+      </section>
+
+      <p className="mt-5 text-center text-xs text-[var(--text-faint)]">Account-scoped to {influencer.email}. Your data is never taken from another influencer's dashboard.</p>
+    </main>
   );
 }
