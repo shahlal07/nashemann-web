@@ -42,7 +42,7 @@ function formatPKR(n: number): string {
   return "Rs " + Math.round(n).toLocaleString("en-PK");
 }
 
-function buildSystemPrompt(pricing: PlatformPricing | null, content: SiteContent): string {
+function buildSystemPrompt(pricing: PlatformPricing | null, content: SiteContent | null | undefined): string {
   const p = pricing ?? {
     per_order_fee: 15,
     monthly_fee: 7000,
@@ -50,10 +50,15 @@ function buildSystemPrompt(pricing: PlatformPricing | null, content: SiteContent
     custom_domain_fee: 4600,
   };
 
-  const howItWorks = (content.how_it_works ?? SITE_CONTENT_DEFAULTS.how_it_works)
-    .map((s, i) => `${i + 1}. ${s.title} — ${s.description}`)
-    .join("\n");
-  const contact = content.contact ?? SITE_CONTENT_DEFAULTS.contact;
+  const howItWorksList = Array.isArray(content?.how_it_works) ? content.how_it_works : SITE_CONTENT_DEFAULTS.how_it_works;
+  console.error("[api/chat] buildSystemPrompt debug:", {
+    contentIsNullish: content == null,
+    howItWorksType: typeof content?.how_it_works,
+    howItWorksIsArray: Array.isArray(content?.how_it_works),
+    resolvedListIsArray: Array.isArray(howItWorksList),
+  });
+  const howItWorks = howItWorksList.map((s, i) => `${i + 1}. ${s.title} — ${s.description}`).join("\n");
+  const contact = content?.contact && typeof content.contact === "object" ? content.contact : SITE_CONTENT_DEFAULTS.contact;
 
   return `You are the support assistant for Nashemann, a multi-vendor SaaS platform that gives small businesses in Pakistan their own branded online storefront (custom subdomain, orders, inventory, and a real admin dashboard) without needing to build anything themselves.
 
