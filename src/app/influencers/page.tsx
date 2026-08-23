@@ -1,21 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Megaphone, TrendingUp, Users, Percent, CheckCircle2 } from "lucide-react";
+import { Megaphone, TrendingUp, Users, Percent, ArrowRight } from "lucide-react";
 import { TiltCard } from "@/components/public/TiltCard";
 import { getInfluencerProgramSettings, type InfluencerProgramSettings } from "@/lib/mock-data";
-
-const PLATFORMS = ["Instagram", "TikTok", "YouTube", "Facebook", "Other"];
-
-const inputClass =
-  "w-full rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent-violet)] accent-ring";
-const labelClass = "mb-1.5 block text-xs font-medium text-[var(--text-muted)]";
 
 const DEFAULT_SETTINGS: InfluencerProgramSettings = { enabled: true, defaultCutPercent: 30, minFollowerCount: 5000, cutDurationMonths: 12 };
 
 export default function InfluencersPage() {
-  const [sent, setSent] = useState(false);
   const [settings, setSettings] = useState<InfluencerProgramSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => {
@@ -23,7 +17,7 @@ export default function InfluencersPage() {
   }, []);
 
   const STEPS = [
-    { icon: Megaphone, title: "Get your code", desc: "Apply, get approved, receive your unique referral code and link." },
+    { icon: Megaphone, title: "Get your code", desc: "Sign up, get approved, receive your unique referral code and link." },
     { icon: Users, title: "Refer real businesses", desc: "Any small business you bring onto Nashemann counts." },
     { icon: TrendingUp, title: "They grow", desc: "They get a real online store and start taking orders." },
     { icon: Percent, title: "You earn", desc: `You keep ${settings.defaultCutPercent}% of the platform's own revenue from every business you referred.` },
@@ -71,71 +65,26 @@ export default function InfluencersPage() {
         transition={{ duration: 0.6 }}
         className="mt-20"
       >
-        <TiltCard strength={2} glare={false} className="mx-auto max-w-xl p-7 sm:p-8">
-          {sent ? (
-            <div className="flex flex-col items-center py-10 text-center">
-              <CheckCircle2 size={36} className="text-[var(--success)]" />
-              <p className="mt-3 font-semibold text-[var(--text)]">Application submitted</p>
-              <p className="mt-1 text-sm text-[var(--text-muted)]">
-                We review every influencer manually — you&apos;ll hear back within 48 hours.
-              </p>
-            </div>
-          ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                setSent(true);
-              }}
-              className="space-y-4"
-            >
-              <h2 className="font-display text-lg font-semibold text-[var(--text)]">Apply to the program</h2>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                <label className="block">
-                  <span className={labelClass}>Your name</span>
-                  <input required className={inputClass} />
-                </label>
-                <label className="block">
-                  <span className={labelClass}>Email</span>
-                  <input required type="email" className={inputClass} />
-                </label>
-                <label className="block">
-                  <span className={labelClass}>Platform</span>
-                  <select required defaultValue="" className={inputClass}>
-                    <option value="" disabled>
-                      Choose one
-                    </option>
-                    {PLATFORMS.map((p) => (
-                      <option key={p} value={p}>
-                        {p}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="block">
-                  <span className={labelClass}>Handle</span>
-                  <input required placeholder="@yourhandle" className={inputClass} />
-                </label>
-                <label className="block sm:col-span-2">
-                  <span className={labelClass}>Follower / subscriber count</span>
-                  <input required type="number" min={0} className={inputClass} />
-                </label>
-              </div>
-              <label className="block">
-                <span className={labelClass}>Why do you want to join?</span>
-                <textarea required rows={3} placeholder="Tell us about your audience and content." className={inputClass} />
-              </label>
-              <button
-                type="submit"
-                className="w-full rounded-full py-3.5 text-sm font-semibold text-black shadow-[var(--shadow-glow-violet)]"
-                style={{ background: "var(--accent-gradient)" }}
-              >
-                Submit application
-              </button>
-              <p className="text-center text-xs text-[var(--text-faint)]">
-                Minimum {settings.minFollowerCount.toLocaleString()} followers to qualify.
-              </p>
-            </form>
-          )}
+        <TiltCard strength={2} glare={false} className="mx-auto flex max-w-xl flex-col items-center p-7 text-center sm:p-8">
+          <h2 className="font-display text-lg font-semibold text-[var(--text)]">Ready to join?</h2>
+          <p className="mt-2 text-sm text-[var(--text-muted)]">
+            Create your influencer account in under a minute — we review every application manually and
+            you&apos;ll hear back within 48 hours.
+          </p>
+          <Link
+            href="/signup?role=influencer"
+            className="mt-6 inline-flex items-center gap-1.5 rounded-full px-6 py-3.5 text-sm font-semibold text-black shadow-[var(--shadow-glow-violet)]"
+            style={{ background: "var(--accent-gradient)" }}
+          >
+            Apply as an influencer <ArrowRight size={15} />
+          </Link>
+          <p className="mt-4 text-xs text-[var(--text-faint)]">
+            Minimum {settings.minFollowerCount.toLocaleString()} followers to qualify. Already applied?{" "}
+            <Link href="/login?role=influencer" className="font-medium text-[var(--accent-violet)] hover:underline">
+              Log in
+            </Link>
+            .
+          </p>
         </TiltCard>
       </motion.div>
     </div>
