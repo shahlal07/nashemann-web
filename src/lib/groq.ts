@@ -1,7 +1,7 @@
 import "server-only";
 
 const GROQ_URL = "https://api.groq.com/openai/v1/chat/completions";
-const MODEL = "llama-3.3-70b-versatile";
+const MODEL = "openai/gpt-oss-120b";
 
 export type ChatMessage = { role: "system" | "user" | "assistant"; content: string };
 
@@ -25,11 +25,13 @@ export async function groqComplete(
       messages,
       temperature: options?.temperature ?? 0.6,
       max_tokens: options?.maxTokens ?? 400,
+      reasoning_effort: "low",
     }),
   });
 
   if (!res.ok) {
     const body = await res.text();
+    console.error(`Groq API error (${res.status}): ${body.slice(0, 1000)}`);
     throw new Error(`Groq API error (${res.status}): ${body.slice(0, 300)}`);
   }
 
