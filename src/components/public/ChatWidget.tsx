@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle, X, Send, User, Sparkles, Maximize2 } from "lucide-react";
 import { useSiteContent } from "@/lib/site-content";
@@ -10,8 +11,8 @@ type Message = { role: "assistant" | "user"; text: string };
 
 export function ChatWidget() {
   const AI_SUPPORT_CONTENT = useSiteContent("ai_support");
+  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [handedOff, setHandedOff] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>(() => [{ role: "assistant", text: AI_SUPPORT_CONTENT.greeting }]);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -43,8 +44,11 @@ export function ChatWidget() {
       });
       const data = await res.json();
       if (!res.ok || !data.reply) throw new Error(data.error ?? "Chat failed");
-      if (data.suggestHuman) setHandedOff(true);
       setMessages((prev) => [...prev, { role: "assistant", text: data.reply }]);
+      if (data.suggestHuman) {
+        setOpen(false);
+        router.push("/chat?mode=human");
+      }
     } catch {
       setMessages((prev) => [
         ...prev,
@@ -92,7 +96,7 @@ export function ChatWidget() {
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-semibold text-[var(--text)]">Nashemann Assistant</p>
-                <p className="text-[0.7rem] text-[var(--text-faint)]">{handedOff ? "Human support · online" : "AI · escalates anytime"}</p>
+                <p className="text-[0.7rem] text-[var(--text-faint)]">AI · escalates anytime</p>
               </div>
               <Link
                 href="/chat"

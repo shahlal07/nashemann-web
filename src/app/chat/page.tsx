@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Send, Users, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useSiteContent } from "@/lib/site-content";
 import { sendCustomerMessage, getConversationByEmail, subscribeToConversation, type SupportConversation } from "@/lib/support-store";
 import { createClient } from "@/lib/supabase/client";
@@ -17,13 +18,23 @@ type Identity = { name: string; email: string };
 const FALLBACK_IDENTITY: Identity = { name: "Zainab Raza", email: "zainab@northernnuts.pk" };
 
 export default function ChatPage() {
+  return (
+    <Suspense fallback={null}>
+      <ChatPageInner />
+    </Suspense>
+  );
+}
+
+function ChatPageInner() {
   const aiSupportContent = useSiteContent("ai_support");
-  const [mode, setMode] = useState<"ai" | "human">("ai");
+  const searchParams = useSearchParams();
+  const [mode, setMode] = useState<"ai" | "human">(() => (searchParams.get("mode") === "human" ? "human" : "ai"));
   const [aiMessages, setAiMessages] = useState<AiMessage[]>(() => [{ role: "assistant", content: aiSupportContent.greeting }]);
   const [aiInput, setAiInput] = useState("");
   const [aiPending, setAiPending] = useState(false);
 
   const [identity, setIdentity] = useState<Identity | null>(null);
+  const [identityLoaded, setIdentityLoaded] = useState(false);
   const [conversation, setConversation] = useState<SupportConversation | null>(null);
   const [humanInput, setHumanInput] = useState("");
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -36,6 +47,7 @@ export default function ChatPage() {
       if (!user) {
         setIdentity(null);
         setConversation(await getConversationByEmail(FALLBACK_IDENTITY.email));
+        setIdentityLoaded(true);
         return;
       }
       const { data: acc } = await supabase.from("platform_accounts").select("name, email").eq("id", user.id).single();
@@ -43,11 +55,21 @@ export default function ChatPage() {
       const resolved = acc ? { name: acc.name, email: acc.email } : null;
       setIdentity(resolved);
       setConversation(await getConversationByEmail((resolved ?? FALLBACK_IDENTITY).email));
+      setIdentityLoaded(true);
     });
     return () => {
       active = false;
     };
   }, []);
+
+  // Auto-create/load the human conversation when arriving via ?mode=human
+  // (e.g. the floating ChatWidget's "talk to a human" redirect), mirroring
+  // what talkToHuman() does for the in-page button.
+  useEffect(() => {
+    if (mode !== "human" || !identityLoaded || conversation) return;
+    const identityToUse = identity ?? FALLBACK_IDENTITY;
+    sendCustomerMessage(identityToUse.name, identityToUse.email, "Hi — I'd like to talk to a real person.").then(setConversation);
+  }, [mode, identityLoaded, conversation, identity]);
 
   const conversationId = conversation?.id;
   useEffect(() => {
