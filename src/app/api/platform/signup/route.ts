@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
@@ -7,6 +8,7 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_RE = /^03\d{9}$/;
 
 type SignupRole = "vendor" | "influencer";
+const VALID_ROLES: SignupRole[] = ["vendor", "influencer"];
 
 function normalizePhone(value: string) {
   return value.replace(/[\s-]/g, "");
@@ -17,18 +19,63 @@ function makeReferralCode(name: string) {
   return `${base}${crypto.randomUUID().replace(/-/g, "").slice(0, 6).toUpperCase()}`;
 }
 
+/** Roles already attached to an account, reading either the current array field or the legacy single-role field. */
+function rolesFromMetadata(metadata: Record<string, unknown>): SignupRole[] {
+  if (Array.isArray(metadata.platform_roles)) {
+    return (metadata.platform_roles as unknown[]).filter((r): r is SignupRole => r === "vendor" || r === "influencer");
+  }
+  if (metadata.platform_role === "vendor" || metadata.platform_role === "influencer") {
+    return [metadata.platform_role];
+  }
+  return [];
+}
+
+/** Anonymous, non-persisting client used purely to verify a password against an existing account before granting it an additional role. */
+function createVerificationClient() {
+  return createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, {
+    auth: { autoRefreshToken: false, persistSession: false, detectSessionInUrl: false },
+  });
+}
+
+async function ensureInfluencerProfile(
+  admin: ReturnType<typeof createAdminClient>,
+  accountId: string,
+  name: string,
+  email: string,
+) {
+  const { data: existing } = await admin.from("influencers").select("id").eq("account_id", accountId).maybeSingle();
+  if (existing) return;
+  const { error } = await admin.from("influencers").insert({
+    account_id: accountId,
+    name,
+    email,
+    social_handle: `@pending_${accountId.slice(0, 8)}`,
+    platform: "Instagram",
+    follower_count: 0,
+    referral_code: makeReferralCode(name),
+    cut_percent: 10,
+    status: "pending",
+  });
+  if (error) throw new Error(`Influencer profile creation failed: ${error.message}`);
+}
+
 export async function POST(request: Request) {
   let createdUserId: string | null = null;
   try {
     const body = await request.json().catch(() => ({}));
-    const role = body.role as SignupRole;
+    const requestedRoles = Array.isArray(body.roles)
+      ? (body.roles as unknown[]).filter((r): r is SignupRole => VALID_ROLES.includes(r as SignupRole))
+      : typeof body.role === "string" && VALID_ROLES.includes(body.role as SignupRole)
+        ? [body.role as SignupRole]
+        : [];
+    const roles = Array.from(new Set(requestedRoles));
     const name = String(body.name ?? "").trim();
     const email = String(body.email ?? "").trim().toLowerCase();
     const phone = normalizePhone(String(body.phone ?? "").trim());
     const password = String(body.password ?? "");
 
-    if (role !== "vendor" && role !== "influencer") {
-      return NextResponse.json({ error: "Choose Vendor or Influencer." }, { status: 400 });
+    if (roles.length === 0) {
+      return NextResponse.json({ error: "Choose Vendor, Influencer, or both." }, { status: 400 });
     }
     if (!name || name.length < 2) {
       return NextResponse.json({ error: "Enter your full name." }, { status: 400 });
@@ -45,19 +92,6 @@ export async function POST(request: Request) {
 
     const admin = createAdminClient();
 
-    const { data: existingUsers, error: usersError } = await admin.auth.admin.listUsers({
-      page: 1,
-      perPage: 1000,
-    });
-    if (usersError) throw new Error(`Auth service error: ${usersError.message}`);
-
-    if (existingUsers.users.some((u) => u.email?.toLowerCase() === email)) {
-      return NextResponse.json(
-        { error: "An account with this email already exists. Use the matching login role." },
-        { status: 409 },
-      );
-    }
-
     const { data: existingVendorAdmin } = await admin
       .from("vendor_admins")
       .select("id")
@@ -72,11 +106,56 @@ export async function POST(request: Request) {
       );
     }
 
+    const { data: existingUsers, error: usersError } = await admin.auth.admin.listUsers({
+      page: 1,
+      perPage: 1000,
+    });
+    if (usersError) throw new Error(`Auth service error: ${usersError.message}`);
+
+    const existingUser = existingUsers.users.find((u) => u.email?.toLowerCase() === email);
+
+    if (existingUser) {
+      // Same email + a role picked at signup for an account that already exists: verify the password
+      // (proving this is really the account owner) and, if it checks out, attach the new role(s) to
+      // the SAME account rather than creating a second one -- this is how "same credentials, one for
+      // vendor, one for influencer" stays one login instead of two.
+      const verifier = createVerificationClient();
+      const { error: signInError } = await verifier.auth.signInWithPassword({ email, password });
+      if (signInError) {
+        return NextResponse.json(
+          { error: "An account with this email already exists and the password doesn't match. Log in instead." },
+          { status: 409 },
+        );
+      }
+
+      const existingRoles = rolesFromMetadata((existingUser.user_metadata ?? {}) as Record<string, unknown>);
+      const mergedRoles = Array.from(new Set([...existingRoles, ...roles]));
+      const newlyAdded = roles.filter((r) => !existingRoles.includes(r));
+
+      if (newlyAdded.length === 0) {
+        return NextResponse.json(
+          { error: "This account already has that role. Log in instead." },
+          { status: 409 },
+        );
+      }
+
+      const { error: updateError } = await admin.auth.admin.updateUserById(existingUser.id, {
+        user_metadata: { ...existingUser.user_metadata, platform_roles: mergedRoles },
+      });
+      if (updateError) throw new Error(`Couldn't add the new role: ${updateError.message}`);
+
+      if (newlyAdded.includes("influencer")) {
+        await ensureInfluencerProfile(admin, existingUser.id, name || String(existingUser.user_metadata?.name ?? name), email);
+      }
+
+      return NextResponse.json({ ok: true, roles: mergedRoles, email, name: existingUser.user_metadata?.name ?? name });
+    }
+
     const { data: created, error: createError } = await admin.auth.admin.createUser({
       email,
       password,
       email_confirm: true,
-      user_metadata: { name, phone, platform_role: role },
+      user_metadata: { name, phone, platform_roles: roles },
     });
 
     if (createError || !created.user) {
@@ -95,25 +174,11 @@ export async function POST(request: Request) {
       console.error("[platform/signup] platform_accounts upsert skipped:", accountError.message);
     }
 
-    if (role === "influencer") {
-      const { error: influencerError } = await admin.from("influencers").insert({
-        account_id: created.user.id,
-        name,
-        email,
-        social_handle: `@pending_${created.user.id.slice(0, 8)}`,
-        platform: "Instagram",
-        follower_count: 0,
-        referral_code: makeReferralCode(name),
-        cut_percent: 10,
-        status: "pending",
-      });
-
-      if (influencerError) {
-        throw new Error(`Influencer profile creation failed: ${influencerError.message}`);
-      }
+    if (roles.includes("influencer")) {
+      await ensureInfluencerProfile(admin, created.user.id, name, email);
     }
 
-    return NextResponse.json({ ok: true, role, email, name });
+    return NextResponse.json({ ok: true, roles, email, name });
   } catch (error) {
     if (createdUserId) {
       try {

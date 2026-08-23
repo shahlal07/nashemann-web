@@ -36,6 +36,7 @@ export default function AccountPage() {
   const [exportError, setExportError] = useState<string | null>(null);
   const [deleteStep, setDeleteStep] = useState<"idle" | "confirm" | "deleting">("idle");
   const [deleteError, setDeleteError] = useState<string | null>(null);
+  const [isInfluencerToo, setIsInfluencerToo] = useState(false);
 
   useEffect(() => {
     const supabase = createClient();
@@ -55,6 +56,10 @@ export default function AccountPage() {
         const [apps, reports] = await Promise.all([getApplications(), getAllBugReports()]);
         setApplications(apps.filter((a) => a.ownerEmail.toLowerCase() === acc.email.toLowerCase()));
         setBugs(reports.filter((b) => b.reporterEmail.toLowerCase() === acc.email.toLowerCase()));
+        fetch("/api/platform/role", { cache: "no-store" })
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => setIsInfluencerToo(Boolean(data?.roles?.includes("influencer"))))
+          .catch(() => {});
       }
     });
   }, []);
@@ -185,6 +190,22 @@ export default function AccountPage() {
           <LogOut size={13} /> Sign out
         </button>
       </motion.div>
+
+      {isInfluencerToo && (
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="mt-6">
+          <Link href="/influencer/dashboard">
+            <TiltCard strength={2} glare={false} className="flex items-center justify-between p-4">
+              <div className="flex items-center gap-2">
+                <Sparkles size={16} className="text-[var(--accent-violet)]" />
+                <span className="text-sm font-medium text-[var(--text)]">This account is also enrolled in the Influencer Program</span>
+              </div>
+              <span className="flex items-center gap-1 text-xs font-semibold text-[var(--accent-violet)]">
+                View dashboard <ArrowRight size={11} />
+              </span>
+            </TiltCard>
+          </Link>
+        </motion.div>
+      )}
 
       <div className="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-3">
         <TiltCard strength={4} className="p-5">
