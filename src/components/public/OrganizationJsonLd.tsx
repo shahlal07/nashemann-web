@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { ContactContent, SocialLinks } from "@/lib/site-content";
+import type { ContactContent, SocialLinks } from "@/lib/site-content-data";
 
 const SITE_URL = "https://nashemann-web.vercel.app";
 
@@ -26,7 +26,7 @@ const FALLBACK_SOCIAL: SocialLinks = {
 async function getContactAndSocial(): Promise<{ contact: ContactContent; social: SocialLinks }> {
   try {
     const supabase = await createClient();
-    const { data, error } = await supabase.from("site_content").select("key, value").in("key", ["contact", "social_links"]);
+    const { data, error } = await supabase.from("platform_site_content").select("key, value").in("key", ["contact", "social_links"]);
     if (error || !data) throw error ?? new Error("no data");
     const map = new Map(data.map((row) => [row.key as string, row.value]));
     return {

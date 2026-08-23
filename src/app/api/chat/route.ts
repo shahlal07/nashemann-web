@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { groqComplete, type ChatMessage } from "@/lib/groq";
-import { SITE_CONTENT_DEFAULTS, type SiteContent } from "@/lib/site-content";
+import { SITE_CONTENT_DEFAULTS, type SiteContent } from "@/lib/site-content-data";
 
 export const runtime = "nodejs";
 
@@ -51,12 +51,6 @@ function buildSystemPrompt(pricing: PlatformPricing | null, content: SiteContent
   };
 
   const howItWorksList = Array.isArray(content?.how_it_works) ? content.how_it_works : SITE_CONTENT_DEFAULTS.how_it_works;
-  console.error("[api/chat] buildSystemPrompt debug:", {
-    contentIsNullish: content == null,
-    howItWorksType: typeof content?.how_it_works,
-    howItWorksIsArray: Array.isArray(content?.how_it_works),
-    resolvedListIsArray: Array.isArray(howItWorksList),
-  });
   const howItWorks = howItWorksList.map((s, i) => `${i + 1}. ${s.title} — ${s.description}`).join("\n");
   const contact = content?.contact && typeof content.contact === "object" ? content.contact : SITE_CONTENT_DEFAULTS.contact;
 
