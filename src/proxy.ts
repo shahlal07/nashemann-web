@@ -9,7 +9,7 @@ function resolveHostname(request: NextRequest): string {
 
 /**
  * Nashemann-web is the platform/public website only. Vendor storefronts are
- * served by the shared vendor storefront deployment (theaamghar-web), using
+ * served by the shared vendor storefront deployment (vendor-storefronts), using
  * their assigned host such as theaamghar.nashemann.store. This app must never
  * become a marketplace router or render a vendor storefront under /store/*.
  */

@@ -14,7 +14,7 @@ export type PricingPlan = "per_order" | "monthly";
 export type StaffRole = "super_admin" | "platform_staff";
 
 // ── Category-aware product settings ─────────────────────────────────────────
-// Mirrors theaamghar-admin's real product_type distinction: perishables
+// Mirrors vendor-admins's real product_type distinction: perishables
 // (fruit/veg/dairy/meat/bakery) sell by weight/box-size and need
 // origin/variety/shelf-life fields, while goods like clothing sell by
 // fixed-attribute variants (size/color) instead. Choosing a category at
@@ -669,7 +669,7 @@ export const MOCK_INFLUENCER_APPLICATIONS: InfluencerApplication[] = [
 ];
 
 // ── Coupons ──────────────────────────────────────────────────────────────────
-// theaamghar-admin's real coupons are always vendor_id-scoped. Nashemann adds
+// vendor-admins's real coupons are always vendor_id-scoped. Nashemann adds
 // one genuinely new capability on top: a super admin can create a coupon with
 // vendorId = null, meaning "universal" -- valid at checkout on every vendor
 // storefront, not just one. Vendor-scoped coupons still exist for parity

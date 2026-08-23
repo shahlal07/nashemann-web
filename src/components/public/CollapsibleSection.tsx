@@ -7,7 +7,7 @@ import { ChevronDown } from "lucide-react";
 /**
  * Mobile-only collapse: on phones the full section starts hidden behind a
  * single toggle button so the page doesn't feel like one long unbroken
- * scroll of cards -- same pattern as theaamghar-web's WhyChooseUs/Story/FAQ
+ * scroll of cards -- same pattern as vendor-storefronts's WhyChooseUs/Story/FAQ
  * sections. On lg+ (desktop) the content is always shown, no toggle at all,
  * since congestion is a small-viewport problem only.
  */

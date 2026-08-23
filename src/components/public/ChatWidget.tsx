@@ -159,7 +159,7 @@ export function ChatWidget() {
   );
 }
 
-// Kept for parity with theaamghar-web's pattern of a visible "you're talking to a person" cue.
+// Kept for parity with vendor-storefronts's pattern of a visible "you're talking to a person" cue.
 export function HumanBadge() {
   return (
     <span className="inline-flex items-center gap-1 text-[0.7rem] text-[var(--text-faint)]">
