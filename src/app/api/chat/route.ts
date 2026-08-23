@@ -24,7 +24,7 @@ async function loadPlatformContext(): Promise<{ pricing: PlatformPricing | null;
       .from("platform_pricing")
       .select("per_order_fee, monthly_fee, monthly_break_even_orders, custom_domain_fee")
       .maybeSingle(),
-    supabase.from("site_content").select("key, value"),
+    supabase.from("platform_site_content").select("key, value"),
   ]);
 
   const map = new Map((contentRows ?? []).map((row) => [row.key as string, row.value]));
@@ -116,7 +116,10 @@ export async function POST(request: Request) {
       { temperature: 0.6, maxTokens: 400 }
     );
     return NextResponse.json({ reply, suggestHuman });
-  } catch {
+  } catch (err) {
+    // This used to swallow the real cause entirely -- every failure showed
+    // as the same generic message with nothing in the logs to diagnose it.
+    console.error("[api/chat] request failed:", err instanceof Error ? err.stack ?? err.message : err);
     return NextResponse.json(
       { error: "Something went wrong. Please try again or message us on WhatsApp." },
       { status: 502 }

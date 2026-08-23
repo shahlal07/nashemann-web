@@ -176,7 +176,7 @@ let cached: Promise<SiteContent> | null = null;
 async function fetchSiteContent(): Promise<SiteContent> {
   try {
     const supabase = createClient();
-    const { data, error } = await supabase.from("site_content").select("key, value");
+    const { data, error } = await supabase.from("platform_site_content").select("key, value");
     if (error || !data) return SITE_CONTENT_DEFAULTS;
     const map = new Map(data.map((row) => [row.key as string, row.value]));
     return {
