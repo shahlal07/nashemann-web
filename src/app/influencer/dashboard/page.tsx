@@ -27,12 +27,37 @@ export default async function InfluencerDashboardPage() {
     .eq("referral_code", influencer.referral_code)
     .order("submitted_at", { ascending: false });
 
-  const { data: referredOrders } = await admin
-    .from("orders")
-    .select("total,referral_code,vendor_id")
-    .eq("referral_code", influencer.referral_code);
+  const { data: referredVendors } = await admin
+    .from("influencer_referred_vendors")
+    .select("vendor_id,referred_at")
+    .eq("influencer_id", influencer.id);
 
-  const revenue = (referredOrders ?? []).reduce((sum, order) => sum + Number(order.total ?? 0), 0);
+  const { data: programSettings } = await admin
+    .from("influencer_program_settings")
+    .select("cut_duration_months")
+    .maybeSingle();
+  const cutDurationMonths = Number(programSettings?.cut_duration_months ?? 12);
+
+  let revenue = 0;
+  if (referredVendors && referredVendors.length > 0) {
+    const vendorIds = referredVendors.map((v) => v.vendor_id);
+    const { data: vendorOrders } = await admin
+      .from("orders")
+      .select("total,vendor_id,created_at")
+      .in("vendor_id", vendorIds);
+
+    const referredAtByVendor = new Map(referredVendors.map((v) => [v.vendor_id, new Date(v.referred_at)]));
+    for (const order of vendorOrders ?? []) {
+      const referredAt = referredAtByVendor.get(order.vendor_id);
+      if (!referredAt) continue;
+      const windowEnd = new Date(referredAt);
+      windowEnd.setMonth(windowEnd.getMonth() + cutDurationMonths);
+      const orderDate = new Date(order.created_at);
+      if (orderDate >= referredAt && orderDate <= windowEnd) {
+        revenue += Number(order.total ?? 0);
+      }
+    }
+  }
   const earnings = revenue * Number(influencer.cut_percent ?? 0) / 100;
 
   return (
