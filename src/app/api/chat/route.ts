@@ -111,17 +111,32 @@ export async function POST(request: Request) {
     latestUserMessage
   );
 
+  let pricing: PlatformPricing | null = null;
+  let content: SiteContent = SITE_CONTENT_DEFAULTS;
   try {
-    const { pricing, content } = await loadPlatformContext();
-    const reply = await groqComplete(
-      [{ role: "system", content: buildSystemPrompt(pricing, content) }, ...messages],
-      { temperature: 0.6, maxTokens: 400 }
+    const loaded = await loadPlatformContext();
+    pricing = loaded.pricing;
+    content = loaded.content;
+  } catch (err) {
+    console.error("[api/chat] loadPlatformContext failed:", err instanceof Error ? err.stack ?? err.message : err);
+  }
+
+  let systemPrompt: string;
+  try {
+    systemPrompt = buildSystemPrompt(pricing, content);
+  } catch (err) {
+    console.error("[api/chat] buildSystemPrompt failed:", err instanceof Error ? err.stack ?? err.message : err);
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again or message us on WhatsApp." },
+      { status: 502 }
     );
+  }
+
+  try {
+    const reply = await groqComplete([{ role: "system", content: systemPrompt }, ...messages], { temperature: 0.6, maxTokens: 400 });
     return NextResponse.json({ reply, suggestHuman });
   } catch (err) {
-    // This used to swallow the real cause entirely -- every failure showed
-    // as the same generic message with nothing in the logs to diagnose it.
-    console.error("[api/chat] request failed:", err instanceof Error ? err.stack ?? err.message : err);
+    console.error("[api/chat] groqComplete failed:", err instanceof Error ? err.stack ?? err.message : err);
     return NextResponse.json(
       { error: "Something went wrong. Please try again or message us on WhatsApp." },
       { status: 502 }
