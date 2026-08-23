@@ -50,8 +50,10 @@ function buildSystemPrompt(pricing: PlatformPricing | null, content: SiteContent
     custom_domain_fee: 4600,
   };
 
-  const howItWorks = content.how_it_works.map((s, i) => `${i + 1}. ${s.title} — ${s.description}`).join("\n");
-  const { contact } = content;
+  const howItWorks = (content.how_it_works ?? SITE_CONTENT_DEFAULTS.how_it_works)
+    .map((s, i) => `${i + 1}. ${s.title} — ${s.description}`)
+    .join("\n");
+  const contact = content.contact ?? SITE_CONTENT_DEFAULTS.contact;
 
   return `You are the support assistant for Nashemann, a multi-vendor SaaS platform that gives small businesses in Pakistan their own branded online storefront (custom subdomain, orders, inventory, and a real admin dashboard) without needing to build anything themselves.
 
