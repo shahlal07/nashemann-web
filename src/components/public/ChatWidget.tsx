@@ -17,6 +17,7 @@ export function ChatWidget() {
   const [messages, setMessages] = useState<Message[]>(() => [{ role: "assistant", text: AI_SUPPORT_CONTENT.greeting }]);
   const panelRef = useRef<HTMLDivElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -28,6 +29,11 @@ export function ChatWidget() {
     document.addEventListener("mousedown", onPointerDown);
     return () => document.removeEventListener("mousedown", onPointerDown);
   }, [open]);
+
+  useEffect(() => {
+    if (!open) return;
+    messagesEndRef.current?.scrollIntoView({ block: "end" });
+  }, [messages, open]);
 
   async function send(text: string) {
     if (!text.trim()) return;
@@ -121,6 +127,7 @@ export function ChatWidget() {
                   </div>
                 </div>
               ))}
+              <div ref={messagesEndRef} />
             </div>
 
             <div className="flex flex-wrap gap-1.5 px-4 pb-2">
