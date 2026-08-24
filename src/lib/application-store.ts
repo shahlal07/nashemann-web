@@ -132,15 +132,24 @@ export type PendingApplication = {
 
 const PENDING_KEY = "nashemann_pending_application";
 
+// localStorage can throw (not just return null) in restricted contexts --
+// in-app browsers (WhatsApp/Instagram/Facebook) most commonly, which are a
+// major share of mobile entry points here. An uncaught throw crashes the
+// whole /apply flow; these guards degrade to "draft doesn't persist" instead.
 export function savePendingApplication(draft: PendingApplication) {
-  if (typeof window !== "undefined") window.localStorage.setItem(PENDING_KEY, JSON.stringify(draft));
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(PENDING_KEY, JSON.stringify(draft));
+  } catch {
+    // Draft just won't survive a reload; the rest of the flow still works.
+  }
 }
 
 export function getPendingApplication(): PendingApplication | null {
   if (typeof window === "undefined") return null;
-  const raw = window.localStorage.getItem(PENDING_KEY);
-  if (!raw) return null;
   try {
+    const raw = window.localStorage.getItem(PENDING_KEY);
+    if (!raw) return null;
     return JSON.parse(raw) as PendingApplication;
   } catch {
     return null;
@@ -148,7 +157,12 @@ export function getPendingApplication(): PendingApplication | null {
 }
 
 export function clearPendingApplication() {
-  if (typeof window !== "undefined") window.localStorage.removeItem(PENDING_KEY);
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(PENDING_KEY);
+  } catch {
+    // Nothing to clean up if storage isn't usable anyway.
+  }
 }
 
 const SUBDOMAIN_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
