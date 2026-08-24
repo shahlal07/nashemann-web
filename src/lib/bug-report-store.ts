@@ -18,6 +18,12 @@ export type BugReport = {
   screenshotUrl?: string | null;
 };
 
+// bug_reports is shared with vendor-storefronts/vendor-admins (same
+// Supabase project) -- its real schema is profile_id/screenshot_path/
+// source/vendor_id, not the reporter_account_id/screenshot_url shape this
+// file used to assume. reporter_name/reporter_email were added here
+// specifically for this app's anonymous reporters (no profile_id to key
+// off of).
 type BugReportRow = {
   id: string;
   title: string;
@@ -25,15 +31,15 @@ type BugReportRow = {
   status: BugReportStatus;
   admin_note: string | null;
   reward_granted: boolean;
-  reporter_name: string;
-  reporter_email: string;
+  reporter_name: string | null;
+  reporter_email: string | null;
   created_at: string;
   reviewed_at: string | null;
-  screenshot_url: string | null;
+  screenshot_path: string | null;
 };
 
 const BUG_REPORT_COLUMNS =
-  "id, title, description, status, admin_note, reward_granted, reporter_name, reporter_email, created_at, reviewed_at, screenshot_url";
+  "id, title, description, status, admin_note, reward_granted, reporter_name, reporter_email, created_at, reviewed_at, screenshot_path";
 
 function mapRow(row: BugReportRow): BugReport {
   return {
@@ -43,11 +49,11 @@ function mapRow(row: BugReportRow): BugReport {
     status: row.status,
     adminNote: row.admin_note,
     rewardGranted: row.reward_granted,
-    reporterName: row.reporter_name,
-    reporterEmail: row.reporter_email,
+    reporterName: row.reporter_name ?? "Anonymous",
+    reporterEmail: row.reporter_email ?? "—",
     createdAt: row.created_at,
     reviewedAt: row.reviewed_at,
-    screenshotUrl: row.screenshot_url,
+    screenshotUrl: row.screenshot_path,
   };
 }
 
@@ -57,20 +63,20 @@ export async function getAllBugReports(): Promise<BugReport[]> {
   const { data, error } = await supabase
     .from("bug_reports")
     .select(BUG_REPORT_COLUMNS)
+    .eq("source", "nashemann")
     .order("created_at", { ascending: false });
   if (error || !data) return [];
   return (data as BugReportRow[]).map(mapRow);
 }
 
-/** Uploads a screenshot to the public `bug-report-screenshots` bucket and returns its public URL. */
+/** Uploads a screenshot to the public `bug-report-screenshots` bucket and returns its path. */
 export async function uploadBugScreenshot(file: File): Promise<string | null> {
   const supabase = createClient();
   const ext = file.name.split(".").pop() || "png";
   const path = `${Date.now()}-${Math.random().toString(36).slice(2, 8)}.${ext}`;
   const { error } = await supabase.storage.from("bug-report-screenshots").upload(path, file);
   if (error) return null;
-  const { data } = supabase.storage.from("bug-report-screenshots").getPublicUrl(path);
-  return data.publicUrl;
+  return path;
 }
 
 export async function submitBugReport(input: {
@@ -86,24 +92,25 @@ export async function submitBugReport(input: {
     .then(({ data }) => data.user?.id ?? null)
     .catch(() => null);
 
-  const screenshotUrl = input.screenshotFile ? await uploadBugScreenshot(input.screenshotFile) : null;
+  const screenshotPath = input.screenshotFile ? await uploadBugScreenshot(input.screenshotFile) : null;
 
   const id = crypto.randomUUID();
   const createdAt = new Date().toISOString();
 
-  // Anonymous submitters have no reporter_account_id, so they can't satisfy
-  // bug_reports_select_own (RLS) to read the row straight back -- Postgres
+  // Anonymous submitters have no profile_id, so they can't satisfy a
+  // self-scoped SELECT RLS policy to read the row straight back -- Postgres
   // requires INSERT...RETURNING to pass a SELECT policy too. Insert with
   // return=minimal instead and build the confirmation from what we already know.
   const { error } = await supabase.from("bug_reports").insert({
     id,
-    reporter_account_id: userId,
+    profile_id: userId,
     title: input.title,
     description: input.description,
     reporter_name: input.reporterName || "Anonymous",
     reporter_email: input.reporterEmail || "—",
-    screenshot_url: screenshotUrl,
+    screenshot_path: screenshotPath,
     created_at: createdAt,
+    source: "nashemann",
   });
   if (error) {
     console.error("[submitBugReport] insert failed:", error.message);
@@ -124,6 +131,6 @@ export async function submitBugReport(input: {
     reporterEmail: input.reporterEmail || "—",
     createdAt,
     reviewedAt: null,
-    screenshotUrl,
+    screenshotUrl: screenshotPath,
   };
 }
