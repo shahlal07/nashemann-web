@@ -92,7 +92,10 @@ export async function saveApplication(app: {
     .single();
   if (error || !data) {
     if (error) console.error("[saveApplication] insert failed:", error.message);
-    throw new Error("Failed to submit application");
+    // P0001 is our own raised exception (e.g. the rate-limit trigger) --
+    // that message is intentionally user-facing. Anything else is a raw
+    // Postgres/PostgREST error, which stays server-log-only.
+    throw new Error(error?.code === "P0001" ? error.message : "Failed to submit application");
   }
   return mapRow(data as ApplicationRow);
 }

@@ -105,7 +105,13 @@ export async function submitBugReport(input: {
     screenshot_url: screenshotUrl,
     created_at: createdAt,
   });
-  if (error) throw error;
+  if (error) {
+    console.error("[submitBugReport] insert failed:", error.message);
+    // P0001 is our own raised exception (e.g. the rate-limit trigger) --
+    // that message is intentionally user-facing. Anything else is a raw
+    // Postgres/PostgREST error, which stays server-log-only.
+    throw new Error(error.code === "P0001" ? error.message : "Failed to submit your bug report. Please try again.");
+  }
 
   return {
     id,

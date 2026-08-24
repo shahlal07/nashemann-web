@@ -20,6 +20,7 @@ const SEVERITIES = [
 export default function ReportBugPage() {
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [severity, setSeverity] = useState("medium");
   const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
 
@@ -27,6 +28,7 @@ export default function ReportBugPage() {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     setSubmitting(true);
+    setSubmitError(null);
     try {
       const title = String(formData.get("title") ?? "").slice(0, 80) || "Bug report";
       const reporterName = String(formData.get("name") ?? "");
@@ -44,6 +46,8 @@ export default function ReportBugPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ id: report.id, title, reporterName, reporterEmail }),
       }).catch(() => {});
+    } catch (err) {
+      setSubmitError(err instanceof Error && err.message ? err.message : "Something went wrong submitting your report. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -121,6 +125,10 @@ export default function ReportBugPage() {
                 <input name="email" type="email" className={inputClass} />
               </label>
             </div>
+
+            {submitError && (
+              <p className="text-center text-xs text-[var(--danger)]">{submitError}</p>
+            )}
 
             <button
               type="submit"

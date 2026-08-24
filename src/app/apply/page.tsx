@@ -189,8 +189,8 @@ function ApplyPageInner() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ referenceId: record.referenceId }),
       }).catch(() => {});
-    } catch {
-      setSubmitError("Something went wrong submitting your application. Please try again.");
+    } catch (err) {
+      setSubmitError(err instanceof Error && err.message ? err.message : "Something went wrong submitting your application. Please try again.");
     } finally {
       setSubmitting(false);
     }
