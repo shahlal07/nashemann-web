@@ -1,12 +1,16 @@
 import { buildFaqs, DEFAULT_FAQ_PRICING } from "@/lib/faq-content";
-import { getPlatformPricing } from "@/lib/mock-data";
 
-export async function FaqJsonLd() {
-  // JSON-LD is crawled by search engines, so it must reflect the live
-  // platform_pricing row like the visible FAQ section does -- previously it
-  // always emitted the seeded defaults regardless of actual pricing.
-  const pricing = await getPlatformPricing().catch(() => DEFAULT_FAQ_PRICING);
-  const faqs = buildFaqs(pricing);
+// Reverted to sync + hardcoded defaults: every other data-fetching call in
+// this codebase that uses the browser Supabase client (mock-data.ts's
+// getPlatformPricing/getCategorySchemas/etc.) is only ever called from a
+// "use client" component's effect, never during server-side rendering --
+// this was the one place breaking that convention. Given this repo's
+// documented history of subtle server/client boundary crashes taking down
+// the whole site, reverting rather than risking it for what's just SEO
+// structured data (the visible FAQ section already shows live pricing via
+// its own client-side fetch).
+export function FaqJsonLd() {
+  const faqs = buildFaqs(DEFAULT_FAQ_PRICING);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
