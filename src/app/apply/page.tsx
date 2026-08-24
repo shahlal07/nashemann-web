@@ -6,7 +6,6 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle2, Copy, ArrowRight, Layers, UserCheck, Loader2, Check, X } from "lucide-react";
 import { TiltCard } from "@/components/public/TiltCard";
-import { ImageUpload } from "@/components/public/ImageUpload";
 import {
   saveApplication,
   savePendingApplication,
@@ -289,6 +288,13 @@ function ApplyPageInner() {
                       <option value="" disabled>
                         Choose one
                       </option>
+                      {/* A resumed draft can set `category` before getCategorySchemas()
+                          resolves -- render it as a placeholder option so the select
+                          shows the resumed value immediately instead of appearing blank
+                          until schemas load and happen to include a matching option. */}
+                      {category && !schemas.some((s) => s.category === category) && (
+                        <option value={category}>{category}</option>
+                      )}
                       {schemas.map((s) => (
                         <option key={s.category} value={s.category}>
                           {s.category}
@@ -419,14 +425,6 @@ function ApplyPageInner() {
                     className={inputClass}
                   />
                 </label>
-
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                  <ImageUpload label="Your logo (optional)" hint="Used to seed your storefront branding." />
-                  <ImageUpload
-                    label="Photo of your current setup (optional)"
-                    hint="A shop front, stall, or even a WhatsApp catalog screenshot — helps us match your existing look."
-                  />
-                </div>
 
                 {submitError && (
                   <p className="text-center text-xs text-[var(--danger)]">{submitError}</p>

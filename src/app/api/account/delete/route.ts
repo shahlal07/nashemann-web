@@ -11,6 +11,15 @@ import { sendAccountDeletionConfirmationEmail } from "@/lib/email";
 export async function POST() {
   const supabase = await createClient();
 
+  // getClaims() verifies the JWT signature every time; getSession() below is
+  // used solely to obtain the raw access token to forward to the edge
+  // function, never as the authz decision itself (matching this project's
+  // documented convention against relying on getSession()/getUser() alone).
+  const { data: claims } = await supabase.auth.getClaims();
+  if (!claims) {
+    return NextResponse.json({ error: "Not authenticated" }, { status: 401 });
+  }
+
   const {
     data: { session },
   } = await supabase.auth.getSession();

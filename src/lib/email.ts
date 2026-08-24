@@ -13,6 +13,22 @@ const FROM_SUPPORT = "Nashemann <support@nashemann.store>";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nashemann.store";
 
+// Every template below interpolates user-controlled strings (names,
+// business names, bug report titles, delivery addresses, ...) directly into
+// HTML sent from the platform's own domain. Unescaped, that's stored/
+// reflected HTML injection into outbound mail -- reachable through public,
+// unauthenticated forms (/apply, /report-bug). Applied at every interpolation
+// site below except our own generated URLs/ids, which never contain
+// user-supplied characters.
+function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function htmlToText(html: string): string {
   return html
     .replace(/<br\s*\/?>/gi, "\n")
@@ -83,10 +99,10 @@ export async function sendApplicationSubmittedEmail(params: {
 }): Promise<void> {
   const trackUrl = `${SITE_URL}/apply/track?ref=${encodeURIComponent(params.referenceId)}`;
   const html = wrapEmail(`
-    <h2 style="margin-top:0;">Thanks, ${params.ownerName.split(" ")[0]} — we've got your application</h2>
-    <p><strong>${params.businessName}</strong>'s application to join Nashemann has been submitted and is now in our review queue.</p>
+    <h2 style="margin-top:0;">Thanks, ${escapeHtml(params.ownerName.split(" ")[0])} — we've got your application</h2>
+    <p><strong>${escapeHtml(params.businessName)}</strong>'s application to join Nashemann has been submitted and is now in our review queue.</p>
     <p style="margin:18px 0;">Your reference ID:</p>
-    <p style="font-family:monospace;font-size:18px;font-weight:700;letter-spacing:0.05em;background:#f3f4f6;padding:10px 14px;border-radius:8px;display:inline-block;">${params.referenceId}</p>
+    <p style="font-family:monospace;font-size:18px;font-weight:700;letter-spacing:0.05em;background:#f3f4f6;padding:10px 14px;border-radius:8px;display:inline-block;">${escapeHtml(params.referenceId)}</p>
     <p style="margin-top:18px;">Keep this ID handy — you can check your application's status any time.</p>
     ${button(trackUrl, "Track your application")}
   `);
@@ -106,15 +122,15 @@ export async function sendApplicationStatusEmail(params: {
   const html = wrapEmail(
     isApproved
       ? `
-        <h2 style="margin-top:0;">You're in, ${params.ownerName.split(" ")[0]} 🎉</h2>
-        <p><strong>${params.businessName}</strong> has been approved and your storefront is live on Nashemann.</p>
-        ${storeUrl ? `<p style="margin:18px 0;">Your store:</p><p style="font-weight:700;">${storeUrl}</p>` : ""}
+        <h2 style="margin-top:0;">You're in, ${escapeHtml(params.ownerName.split(" ")[0])} 🎉</h2>
+        <p><strong>${escapeHtml(params.businessName)}</strong> has been approved and your storefront is live on Nashemann.</p>
+        ${storeUrl ? `<p style="margin:18px 0;">Your store:</p><p style="font-weight:700;">${escapeHtml(storeUrl)}</p>` : ""}
         <p style="margin-top:18px;">Sign in to your vendor dashboard to add products, connect a payment method, and start taking orders.</p>
         ${button(`${SITE_URL}/signup?returnTo=/vendor/dashboard`, "Go to your dashboard")}
       `
       : `
-        <h2 style="margin-top:0;">About your application, ${params.ownerName.split(" ")[0]}</h2>
-        <p>We've reviewed <strong>${params.businessName}</strong>'s application (ref. ${params.referenceId}) and aren't able to move forward with it at this time.</p>
+        <h2 style="margin-top:0;">About your application, ${escapeHtml(params.ownerName.split(" ")[0])}</h2>
+        <p>We've reviewed <strong>${escapeHtml(params.businessName)}</strong>'s application (ref. ${escapeHtml(params.referenceId)}) and aren't able to move forward with it at this time.</p>
         <p style="margin-top:14px;">If you think this was a mistake or want more detail, reply to this email and we'll get back to you.</p>
       `
   );
@@ -127,7 +143,7 @@ export async function sendApplicationStatusEmail(params: {
 
 export async function sendWelcomeEmail(params: { to: string; name: string }): Promise<void> {
   const html = wrapEmail(`
-    <h2 style="margin-top:0;">Welcome to Nashemann, ${params.name.split(" ")[0]}</h2>
+    <h2 style="margin-top:0;">Welcome to Nashemann, ${escapeHtml(params.name.split(" ")[0])}</h2>
     <p>Your platform account is ready. From here you can apply to open a vendor storefront, track applications, and reach support any time.</p>
     ${button(`${SITE_URL}/account`, "Go to your account")}
   `);
@@ -137,7 +153,7 @@ export async function sendWelcomeEmail(params: { to: string; name: string }): Pr
 export async function sendAccountDeletionConfirmationEmail(params: { to: string; name: string }): Promise<void> {
   const html = wrapEmail(`
     <h2 style="margin-top:0;">Your Nashemann account has been deleted</h2>
-    <p>Hi ${params.name.split(" ")[0]}, this confirms your Nashemann platform account and its associated data (bug reports, support conversations) have been permanently deleted, as requested.</p>
+    <p>Hi ${escapeHtml(params.name.split(" ")[0])}, this confirms your Nashemann platform account and its associated data (bug reports, support conversations) have been permanently deleted, as requested.</p>
     <p style="margin-top:14px;">Any vendor application you submitted has been anonymized rather than deleted, since it may be tied to a live, operating store.</p>
     <p style="margin-top:14px;">If you didn't request this, contact us immediately by replying to this email.</p>
   `);
@@ -146,9 +162,9 @@ export async function sendAccountDeletionConfirmationEmail(params: { to: string;
 
 export async function sendBugReportAckEmail(params: { to: string; name: string; title: string }): Promise<void> {
   const html = wrapEmail(`
-    <h2 style="margin-top:0;">Got it, ${params.name.split(" ")[0]} — thanks for the report</h2>
+    <h2 style="margin-top:0;">Got it, ${escapeHtml(params.name.split(" ")[0])} — thanks for the report</h2>
     <p>We've logged your bug report:</p>
-    <p style="font-weight:600;background:#f3f4f6;padding:10px 14px;border-radius:8px;">${params.title}</p>
+    <p style="font-weight:600;background:#f3f4f6;padding:10px 14px;border-radius:8px;">${escapeHtml(params.title)}</p>
     <p style="margin-top:14px;">Someone on the team will take a look. If it's confirmed, you'll get Rs 500 in platform credit.</p>
   `);
   await sendMail({ to: params.to, subject: `We've got your bug report — ${params.title}`, html, from: FROM_SUPPORT });
@@ -161,7 +177,7 @@ function itemsTable(items: StorefrontOrderItemForEmail[]): string {
     .map(
       (i) => `
       <tr>
-        <td style="padding:7px 0;border-bottom:1px solid #f0f0f0;">${i.name} × ${i.qty}</td>
+        <td style="padding:7px 0;border-bottom:1px solid #f0f0f0;">${escapeHtml(i.name)} × ${i.qty}</td>
         <td style="padding:7px 0;border-bottom:1px solid #f0f0f0;text-align:right;">Rs ${Math.round(i.unitPrice * i.qty).toLocaleString("en-PK")}</td>
       </tr>`
     )
@@ -178,8 +194,8 @@ export async function sendStorefrontOrderCustomerEmail(params: {
   totalAmount: number;
 }): Promise<void> {
   const html = wrapEmail(`
-    <h2 style="margin-top:0;">Order received, ${params.customerName.split(" ")[0]}!</h2>
-    <p><strong>${params.vendorName}</strong> has your preorder and will confirm delivery details with you shortly.</p>
+    <h2 style="margin-top:0;">Order received, ${escapeHtml(params.customerName.split(" ")[0])}!</h2>
+    <p><strong>${escapeHtml(params.vendorName)}</strong> has your preorder and will confirm delivery details with you shortly.</p>
     ${itemsTable(params.items)}
     <p style="text-align:right;font-weight:700;font-size:17px;margin:8px 0;">Total: Rs ${Math.round(params.totalAmount).toLocaleString("en-PK")}</p>
     <p style="margin-top:14px;color:#6b7280;font-size:13px;">Order #${params.orderId.slice(0, 8)}</p>
@@ -200,10 +216,10 @@ export async function sendStorefrontOrderVendorEmail(params: {
 }): Promise<void> {
   const dashboardUrl = `https://admin.${params.vendorSubdomain}.nashemann.store`;
   const html = wrapEmail(`
-    <h2 style="margin-top:0;">New preorder — ${params.vendorName}</h2>
-    <p><strong>${params.customerName}</strong> (${params.customerPhone}) just placed a preorder for Rs ${Math.round(params.totalAmount).toLocaleString("en-PK")}.</p>
+    <h2 style="margin-top:0;">New preorder — ${escapeHtml(params.vendorName)}</h2>
+    <p><strong>${escapeHtml(params.customerName)}</strong> (${escapeHtml(params.customerPhone)}) just placed a preorder for Rs ${Math.round(params.totalAmount).toLocaleString("en-PK")}.</p>
     ${itemsTable(params.items)}
-    <p style="margin-top:14px;"><strong>Deliver to:</strong><br/>${params.customerAddress}</p>
+    <p style="margin-top:14px;"><strong>Deliver to:</strong><br/>${escapeHtml(params.customerAddress)}</p>
     <p style="margin-top:10px;color:#6b7280;font-size:13px;">Order #${params.orderId.slice(0, 8)} · payment screenshot attached in your dashboard</p>
     ${button(dashboardUrl, "Open vendor dashboard")}
   `);
