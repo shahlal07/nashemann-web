@@ -20,7 +20,10 @@ import {
   type PendingApplication,
 } from "@/lib/application-store";
 import { createClient } from "@/lib/supabase/client";
-import { getCategorySchemas, type CategoryProductSchema } from "@/lib/mock-data";
+import { getCategorySchemas, getPlatformPricing, type CategoryProductSchema, type PlatformPricing } from "@/lib/mock-data";
+import { formatPKR } from "@/lib/utils";
+
+const DEFAULT_PRICING: PlatformPricing = { perOrderFee: 15, monthlyFee: 7000, monthlyBreakEvenOrders: 467, customDomainFee: 4600 };
 
 const inputClass =
   "w-full rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent-violet)] accent-ring";
@@ -39,6 +42,7 @@ function ApplyPageInner() {
   const searchParams = useSearchParams();
   const referralCode = searchParams.get("ref") ?? undefined;
   const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [result, setResult] = useState<StoredApplication | null>(null);
   const [plan, setPlan] = useState<"per_order" | "monthly">("per_order");
   const [copied, setCopied] = useState(false);
@@ -47,6 +51,7 @@ function ApplyPageInner() {
   const [resumed, setResumed] = useState(false);
   const [schemas, setSchemas] = useState<CategoryProductSchema[]>([]);
   const schema = schemas.find((s) => s.category === category) ?? null;
+  const [pricing, setPricing] = useState<PlatformPricing>(DEFAULT_PRICING);
 
   const [emailValue, setEmailValue] = useState(draft?.ownerEmail ?? "");
   const [phoneValue, setPhoneValue] = useState(draft?.ownerPhone ?? "");
@@ -66,6 +71,10 @@ function ApplyPageInner() {
 
   useEffect(() => {
     getCategorySchemas().then(setSchemas);
+  }, []);
+
+  useEffect(() => {
+    getPlatformPricing().then(setPricing).catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -147,6 +156,7 @@ function ApplyPageInner() {
     }
 
     setSubmitting(true);
+    setSubmitError(null);
     try {
       const record = await saveApplication({
         businessName: fields.businessName,
@@ -160,6 +170,10 @@ function ApplyPageInner() {
         message: fields.message,
         referralCode: fields.referralCode,
       });
+      // The draft is only cleared once the application actually saved --
+      // previously a saveApplication() failure was unhandled (no catch), so
+      // the form silently reset to its idle state with no error shown and
+      // the applicant had no idea their submission never went through.
       clearPendingApplication();
       setResult(record);
       fetch("/api/notifications/application-submitted", {
@@ -167,6 +181,8 @@ function ApplyPageInner() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ referenceId: record.referenceId }),
       }).catch(() => {});
+    } catch {
+      setSubmitError("Something went wrong submitting your application. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -365,8 +381,8 @@ function ApplyPageInner() {
                   <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                     {(
                       [
-                        { id: "per_order" as const, title: "Pay Per Order", desc: "Rs 15/order, no upfront cost" },
-                        { id: "monthly" as const, title: "Monthly", desc: "Rs 7,000/month, unlimited orders" },
+                        { id: "per_order" as const, title: "Pay Per Order", desc: `${formatPKR(pricing.perOrderFee)}/order, no upfront cost` },
+                        { id: "monthly" as const, title: "Monthly", desc: `${formatPKR(pricing.monthlyFee)}/month, unlimited orders` },
                       ]
                     ).map((p) => (
                       <button
@@ -403,6 +419,10 @@ function ApplyPageInner() {
                     hint="A shop front, stall, or even a WhatsApp catalog screenshot — helps us match your existing look."
                   />
                 </div>
+
+                {submitError && (
+                  <p className="text-center text-xs text-[var(--danger)]">{submitError}</p>
+                )}
 
                 <motion.button
                   whileHover={{ scale: 1.01 }}

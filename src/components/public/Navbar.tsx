@@ -131,7 +131,7 @@ export function Navbar() {
                   My Account
                 </Link>
                 <Link
-                  href="/vendor"
+                  href="/revenue"
                   onClick={() => setOpen(false)}
                   className="rounded-lg px-3 py-2.5 text-sm font-medium text-[var(--text-muted)] hover:bg-[var(--surface-hover)] hover:text-[var(--text)]"
                 >

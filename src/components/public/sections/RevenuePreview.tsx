@@ -47,7 +47,7 @@ export function RevenuePreview() {
           </div>
 
           <Link
-            href="/vendor"
+            href="/revenue"
             className="mt-7 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent-violet)] hover:underline"
           >
             See your store&apos;s revenue <ArrowRight size={14} />

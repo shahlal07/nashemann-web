@@ -14,7 +14,7 @@ const PUBLIC_ROUTES: { path: string; priority: number; changeFrequency: Metadata
   { path: "/report-bug", priority: 0.3, changeFrequency: "monthly" },
   { path: "/login", priority: 0.3, changeFrequency: "yearly" },
   { path: "/signup", priority: 0.3, changeFrequency: "yearly" },
-  { path: "/vendor", priority: 0.3, changeFrequency: "yearly" },
+  { path: "/revenue", priority: 0.3, changeFrequency: "yearly" },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
