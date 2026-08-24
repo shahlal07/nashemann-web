@@ -117,7 +117,16 @@ export async function POST(request: Request) {
     // already exists.
     let existingUser: User | undefined;
     for (let page = 1; page <= 20; page += 1) {
-      const { data: existingUsers, error: usersError } = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+      // GoTrue's admin API occasionally blips ("requires a valid Bearer
+      // token") under transient load with no underlying config problem --
+      // observed live during onboarding. One retry rather than failing a
+      // real signup outright on a one-off hiccup.
+      let listResult = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+      if (listResult.error) {
+        await new Promise((r) => setTimeout(r, 400));
+        listResult = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+      }
+      const { data: existingUsers, error: usersError } = listResult;
       if (usersError) {
         console.error("[platform/signup] listUsers failed:", usersError.message);
         throw new Error("Couldn't verify this email right now. Please try again.");
