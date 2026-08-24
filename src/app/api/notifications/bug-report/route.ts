@@ -1,23 +1,36 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sendBugReportAckEmail } from "@/lib/email";
+import { createAdminClient } from "@/lib/supabase/admin";
 
-type Body = { title?: string; reporterName?: string; reporterEmail?: string };
+type Body = { id?: string; title?: string; reporterName?: string; reporterEmail?: string };
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
  * Fired right after /report-bug successfully inserts a bug_reports row.
  * Anonymous reports have no reporter_account_id, so (like the storefront
- * order route) there's no session to re-read the row through -- the fields
- * are taken from the request body, same trust level as the public insert.
- * Skips silently when no usable email was given (bug reports don't require one).
+ * order route) there's no session to re-read the row through -- but unlike
+ * that route, this previously trusted the request body outright with no
+ * check that a matching row was ever actually inserted, letting anyone POST
+ * arbitrary JSON here directly and trigger unlimited emails to any address.
+ * Now requires the row's own id (returned from the insert, not guessable)
+ * and verifies it via the service-role client before sending anything.
  */
 export async function POST(req: NextRequest) {
-  const { title, reporterName, reporterEmail } = (await req.json().catch(() => ({}))) as Body;
+  const { id, title, reporterName, reporterEmail } = (await req.json().catch(() => ({}))) as Body;
 
-  if (!reporterEmail || !EMAIL_PATTERN.test(reporterEmail.trim())) {
+  if (!id || !reporterEmail || !EMAIL_PATTERN.test(reporterEmail.trim())) {
     return NextResponse.json({ skipped: true });
   }
+
+  const admin = createAdminClient();
+  const { data: row } = await admin
+    .from("bug_reports")
+    .select("id")
+    .eq("id", id)
+    .eq("reporter_email", reporterEmail.trim())
+    .maybeSingle();
+  if (!row) return NextResponse.json({ skipped: true });
 
   await sendBugReportAckEmail({
     to: reporterEmail.trim(),

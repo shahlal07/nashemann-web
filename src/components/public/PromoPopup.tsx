@@ -14,14 +14,26 @@ export function PromoPopup() {
 
   useEffect(() => {
     if (!PROMO_POPUP.enabled) return;
-    if (typeof window !== "undefined" && sessionStorage.getItem(DISMISS_KEY)) return;
+    // sessionStorage can throw (not just return null) in restricted contexts
+    // -- in-app browsers (WhatsApp/Instagram/Facebook) most commonly, a major
+    // share of mobile entry points. See the identical guard in
+    // application-store.ts's savePendingApplication.
+    try {
+      if (typeof window !== "undefined" && sessionStorage.getItem(DISMISS_KEY)) return;
+    } catch {
+      // Can't read the dismiss flag -- just show the popup every visit.
+    }
     const t = setTimeout(() => setVisible(true), PROMO_POPUP.delayMs);
     return () => clearTimeout(t);
   }, [PROMO_POPUP.enabled, PROMO_POPUP.delayMs]);
 
   function dismiss() {
     setVisible(false);
-    sessionStorage.setItem(DISMISS_KEY, "1");
+    try {
+      if (typeof window !== "undefined") sessionStorage.setItem(DISMISS_KEY, "1");
+    } catch {
+      // Dismissal just won't persist across the session; the popup still closes.
+    }
   }
 
   return (

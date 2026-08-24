@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { createClient as createSupabaseClient, type User } from "@supabase/supabase-js";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 export const dynamic = "force-dynamic";
@@ -56,7 +56,10 @@ async function ensureInfluencerProfile(
     cut_percent: 10,
     status: "pending",
   });
-  if (error) throw new Error(`Influencer profile creation failed: ${error.message}`);
+  if (error) {
+    console.error("[platform/signup] influencer profile insert failed:", error.message);
+    throw new Error("Couldn't set up your influencer profile right now. Please try again.");
+  }
 }
 
 export async function POST(request: Request) {
@@ -106,13 +109,22 @@ export async function POST(request: Request) {
       );
     }
 
-    const { data: existingUsers, error: usersError } = await admin.auth.admin.listUsers({
-      page: 1,
-      perPage: 1000,
-    });
-    if (usersError) throw new Error(`Auth service error: ${usersError.message}`);
-
-    const existingUser = existingUsers.users.find((u) => u.email?.toLowerCase() === email);
+    // listUsers isn't a search -- it's manually paginated up to 20 pages
+    // (20k users), matching the cap used in nashemann-admin's
+    // vendor-provisioning.ts. Without a cap, an account past page 1 (the
+    // 1000th signup) would become invisible to this duplicate-email check,
+    // letting a second account silently get created for an email that
+    // already exists.
+    let existingUser: User | undefined;
+    for (let page = 1; page <= 20; page += 1) {
+      const { data: existingUsers, error: usersError } = await admin.auth.admin.listUsers({ page, perPage: 1000 });
+      if (usersError) {
+        console.error("[platform/signup] listUsers failed:", usersError.message);
+        throw new Error("Couldn't verify this email right now. Please try again.");
+      }
+      existingUser = existingUsers.users.find((u) => u.email?.toLowerCase() === email);
+      if (existingUser || existingUsers.users.length < 1000) break;
+    }
 
     if (existingUser) {
       // Same email + a role picked at signup for an account that already exists: verify the password
@@ -142,7 +154,10 @@ export async function POST(request: Request) {
       const { error: updateError } = await admin.auth.admin.updateUserById(existingUser.id, {
         user_metadata: { ...existingUser.user_metadata, platform_roles: mergedRoles },
       });
-      if (updateError) throw new Error(`Couldn't add the new role: ${updateError.message}`);
+      if (updateError) {
+        console.error("[platform/signup] updateUserById failed:", updateError.message);
+        throw new Error("Couldn't add the new role right now. Please try again.");
+      }
 
       if (newlyAdded.includes("influencer")) {
         await ensureInfluencerProfile(admin, existingUser.id, name || String(existingUser.user_metadata?.name ?? name), email);
@@ -159,7 +174,8 @@ export async function POST(request: Request) {
     });
 
     if (createError || !created.user) {
-      throw new Error(`Auth account creation failed: ${createError?.message ?? "Couldn't create the account."}`);
+      console.error("[platform/signup] createUser failed:", createError?.message);
+      throw new Error("Couldn't create your account right now. Please try again.");
     }
 
     createdUserId = created.user.id;

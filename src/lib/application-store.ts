@@ -90,7 +90,10 @@ export async function saveApplication(app: {
     })
     .select(APPLICATION_COLUMNS)
     .single();
-  if (error || !data) throw error ?? new Error("Failed to submit application");
+  if (error || !data) {
+    if (error) console.error("[saveApplication] insert failed:", error.message);
+    throw new Error("Failed to submit application");
+  }
   return mapRow(data as ApplicationRow);
 }
 
@@ -169,8 +172,13 @@ const SUBDOMAIN_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PK_PHONE_PATTERN = /^03\d{9}$/;
 
+// Kept in sync with nashemann-admin's vendor-provisioning.ts -- checking
+// format alone let an applicant pass this page's validation with a
+// subdomain that provisioning would reject outright on approval.
+export const RESERVED_SUBDOMAINS = ["www", "admin", "api", "app", "mail", "support", "status", "superadmin"];
+
 export function isValidSubdomainFormat(value: string): boolean {
-  return value.length >= 3 && value.length <= 40 && SUBDOMAIN_PATTERN.test(value);
+  return value.length >= 3 && value.length <= 40 && SUBDOMAIN_PATTERN.test(value) && !RESERVED_SUBDOMAINS.includes(value);
 }
 
 export function isValidEmailFormat(value: string): boolean {
@@ -182,11 +190,18 @@ export function isValidPakPhoneFormat(value: string): boolean {
   return PK_PHONE_PATTERN.test(value.replace(/[\s-]/g, ""));
 }
 
-/** Checks the `subdomain` a vendor picked on /apply against live rows in `vendors` (the real table a subdomain would collide with once provisioned). */
+/**
+ * Checks the `subdomain` a vendor picked on /apply against live rows in
+ * `vendors` (the real table a subdomain would collide with once
+ * provisioned), via a security-definer RPC -- vendors_public_read's RLS
+ * only exposes status='active' rows to anon, so a direct `.from("vendors")`
+ * select here would silently miss a suspended/pending vendor's subdomain
+ * and report it as available.
+ */
 export async function isSubdomainTaken(subdomain: string): Promise<boolean> {
   if (!isValidSubdomainFormat(subdomain)) return false;
   const supabase = createClient();
-  const { data, error } = await supabase.from("vendors").select("id").eq("subdomain", subdomain).limit(1);
+  const { data, error } = await supabase.rpc("is_subdomain_taken", { p_subdomain: subdomain });
   if (error) return false;
-  return (data?.length ?? 0) > 0;
+  return Boolean(data);
 }

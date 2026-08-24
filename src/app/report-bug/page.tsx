@@ -31,7 +31,7 @@ export default function ReportBugPage() {
       const title = String(formData.get("title") ?? "").slice(0, 80) || "Bug report";
       const reporterName = String(formData.get("name") ?? "");
       const reporterEmail = String(formData.get("email") ?? "");
-      await submitBugReport({
+      const report = await submitBugReport({
         title,
         description: String(formData.get("description") ?? ""),
         reporterName,
@@ -42,7 +42,7 @@ export default function ReportBugPage() {
       fetch("/api/notifications/bug-report", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ title, reporterName, reporterEmail }),
+        body: JSON.stringify({ id: report.id, title, reporterName, reporterEmail }),
       }).catch(() => {});
     } finally {
       setSubmitting(false);

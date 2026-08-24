@@ -46,6 +46,15 @@ export {
 
 let cached: Promise<SiteContent> | null = null;
 
+/** One-level merge: a fetched row that only sets some of an object section's
+ * keys (e.g. an admin edit that only touched `headline`) no longer blanks
+ * out every field it didn't set -- each key falls back to the matching
+ * default individually instead of the whole section being replaced wholesale. */
+function mergeSection<T extends Record<string, unknown>>(fetched: unknown, fallback: T): T {
+  if (!fetched || typeof fetched !== "object" || Array.isArray(fetched)) return fallback;
+  return { ...fallback, ...(fetched as Partial<T>) };
+}
+
 async function fetchSiteContent(): Promise<SiteContent> {
   try {
     const supabase = createClient();
@@ -53,16 +62,19 @@ async function fetchSiteContent(): Promise<SiteContent> {
     if (error || !data) return SITE_CONTENT_DEFAULTS;
     const map = new Map(data.map((row) => [row.key as string, row.value]));
     return {
-      hero: (map.get("hero") as HeroContent) ?? SITE_CONTENT_DEFAULTS.hero,
+      hero: mergeSection<HeroContent>(map.get("hero"), SITE_CONTENT_DEFAULTS.hero),
+      // Array-typed sections are whole-value replacement by nature -- there's
+      // no per-item key to merge against, an admin edit here always intends
+      // to set the entire list.
       how_it_works: (map.get("how_it_works") as HowItWorksItem[]) ?? SITE_CONTENT_DEFAULTS.how_it_works,
       features: (map.get("features") as FeatureItem[]) ?? SITE_CONTENT_DEFAULTS.features,
       testimonials: (map.get("testimonials") as TestimonialItem[]) ?? SITE_CONTENT_DEFAULTS.testimonials,
-      rewards: (map.get("rewards") as RewardsContent) ?? SITE_CONTENT_DEFAULTS.rewards,
-      contact: (map.get("contact") as ContactContent) ?? SITE_CONTENT_DEFAULTS.contact,
-      social_links: (map.get("social_links") as SocialLinks) ?? SITE_CONTENT_DEFAULTS.social_links,
-      promo_popup: (map.get("promo_popup") as PromoPopupContent) ?? SITE_CONTENT_DEFAULTS.promo_popup,
-      ai_support: (map.get("ai_support") as AiSupportContent) ?? SITE_CONTENT_DEFAULTS.ai_support,
-      terms: (map.get("terms") as TermsContent) ?? SITE_CONTENT_DEFAULTS.terms,
+      rewards: mergeSection<RewardsContent>(map.get("rewards"), SITE_CONTENT_DEFAULTS.rewards),
+      contact: mergeSection<ContactContent>(map.get("contact"), SITE_CONTENT_DEFAULTS.contact),
+      social_links: mergeSection<SocialLinks>(map.get("social_links"), SITE_CONTENT_DEFAULTS.social_links),
+      promo_popup: mergeSection<PromoPopupContent>(map.get("promo_popup"), SITE_CONTENT_DEFAULTS.promo_popup),
+      ai_support: mergeSection<AiSupportContent>(map.get("ai_support"), SITE_CONTENT_DEFAULTS.ai_support),
+      terms: mergeSection<TermsContent>(map.get("terms"), SITE_CONTENT_DEFAULTS.terms),
     };
   } catch {
     // Supabase client creation or network failure — gracefully degrade to

@@ -16,6 +16,7 @@ import {
   isValidEmailFormat,
   isValidPakPhoneFormat,
   isSubdomainTaken,
+  RESERVED_SUBDOMAINS,
   type StoredApplication,
   type PendingApplication,
 } from "@/lib/application-store";
@@ -62,10 +63,13 @@ function ApplyPageInner() {
   const subdomainCheckId = useRef(0);
 
   const subdomainTrimmed = subdomainValue.trim().toLowerCase();
-  const subdomainFormatError =
-    subdomainTrimmed && !isValidSubdomainFormat(subdomainTrimmed)
-      ? "Only lowercase letters, numbers, and hyphens (no leading/trailing hyphen), 3-40 characters."
-      : null;
+  const subdomainFormatError = !subdomainTrimmed
+    ? null
+    : RESERVED_SUBDOMAINS.includes(subdomainTrimmed)
+      ? "That subdomain is reserved -- please choose another."
+      : !isValidSubdomainFormat(subdomainTrimmed)
+        ? "Only lowercase letters, numbers, and hyphens (no leading/trailing hyphen), 3-40 characters."
+        : null;
   const subdomainStatus: "idle" | "checking" | "available" | "taken" =
     !subdomainTrimmed || subdomainFormatError || checkedSubdomain?.value !== subdomainTrimmed ? "idle" : checkedSubdomain.result;
 
@@ -96,13 +100,17 @@ function ApplyPageInner() {
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!active) return;
       const pending = getPendingApplication();
+      // getUser() is async, so a user who starts typing in the brief window
+      // before it resolves could otherwise have their own input stomped by
+      // the stale draft once this resolves -- only restore fields that are
+      // still at their untouched initial state.
       if (pending && user) {
         setDraft(pending);
-        setCategory(pending.category);
-        setPlan(pending.plan);
-        setEmailValue(pending.ownerEmail);
-        setPhoneValue(pending.ownerPhone);
-        setSubdomainValue(pending.subdomain);
+        setCategory((prev) => prev || pending.category);
+        setPlan((prev) => (prev === "per_order" ? pending.plan : prev));
+        setEmailValue((prev) => prev || pending.ownerEmail);
+        setPhoneValue((prev) => prev || pending.ownerPhone);
+        setSubdomainValue((prev) => prev || pending.subdomain);
         setResumed(true);
       }
     });
