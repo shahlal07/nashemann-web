@@ -14,6 +14,7 @@ import {
   type SocialLinks,
   type PromoPopupContent,
   type AiSupportContent,
+  type TermsContent,
 } from "@/lib/site-content-data";
 
 export {
@@ -30,6 +31,8 @@ export {
   type SocialLinks,
   type PromoPopupContent,
   type AiSupportContent,
+  type TermsSection,
+  type TermsContent,
 } from "@/lib/site-content-data";
 
 /**
@@ -59,6 +62,7 @@ async function fetchSiteContent(): Promise<SiteContent> {
       social_links: (map.get("social_links") as SocialLinks) ?? SITE_CONTENT_DEFAULTS.social_links,
       promo_popup: (map.get("promo_popup") as PromoPopupContent) ?? SITE_CONTENT_DEFAULTS.promo_popup,
       ai_support: (map.get("ai_support") as AiSupportContent) ?? SITE_CONTENT_DEFAULTS.ai_support,
+      terms: (map.get("terms") as TermsContent) ?? SITE_CONTENT_DEFAULTS.terms,
     };
   } catch {
     // Supabase client creation or network failure — gracefully degrade to
