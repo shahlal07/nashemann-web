@@ -33,6 +33,7 @@ export function AuthForm({ initialMode, initialRole }: { initialMode: "signup" |
   const [loginRole, setLoginRole] = useState<LoginRole>(initialRole === "influencer" ? "influencer" : initialRole === "storefront" ? "storefront" : "vendor");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
   const returnTo = searchParams.get("returnTo") || "/account";
 
   function toggleSignupRole(role: SignupRole) {
@@ -79,6 +80,7 @@ export function AuthForm({ initialMode, initialRole }: { initialMode: "signup" |
     try {
       const formData = new FormData(event.currentTarget);
       if (mode === "signup") {
+        if (!agreedToTerms) throw new Error("Please agree to the Terms & Conditions to continue.");
         const password = String(formData.get("password") ?? "");
         const confirmPassword = String(formData.get("confirmPassword") ?? "");
         if (password !== confirmPassword) throw new Error("Passwords don't match.");
@@ -189,8 +191,26 @@ export function AuthForm({ initialMode, initialRole }: { initialMode: "signup" |
               <label className="block"><span className={labelClass}>Email</span><input name="email" required type="email" className={inputClass} autoComplete="username" placeholder="you@example.com" /></label>
               <label className="block"><span className={labelClass}>Password</span><input name="password" required type="password" className={inputClass} autoComplete="current-password" placeholder="Your password" /></label>
             </>}
+            {mode === "signup" && (
+              <label className="flex items-start gap-2.5 text-xs text-[var(--text-muted)]">
+                <input
+                  type="checkbox"
+                  checked={agreedToTerms}
+                  onChange={(e) => { setAgreedToTerms(e.target.checked); setError(""); }}
+                  required
+                  className="mt-0.5 h-4 w-4 shrink-0 accent-[var(--accent-violet)]"
+                />
+                <span>
+                  I agree to Nashemann&apos;s{" "}
+                  <a href="/terms" target="_blank" rel="noopener noreferrer" className="font-semibold text-[var(--accent-violet)] hover:underline">
+                    Terms &amp; Conditions
+                  </a>
+                  .
+                </span>
+              </label>
+            )}
             {error && <p role="alert" className="rounded-[var(--radius-sm)] border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-500">{error}</p>}
-            <button type="submit" disabled={loading} className="w-full rounded-full py-3 text-sm font-semibold text-black transition-opacity disabled:cursor-not-allowed disabled:opacity-60" style={{ background: "var(--accent-gradient)" }}>{loading ? (mode === "signup" ? "Creating account…" : "Checking account…") : (mode === "signup" ? `Create ${selectedRoleLabel} account` : `Continue as ${selectedRoleLabel}`)}</button>
+            <button type="submit" disabled={loading || (mode === "signup" && !agreedToTerms)} className="w-full rounded-full py-3 text-sm font-semibold text-black transition-opacity disabled:cursor-not-allowed disabled:opacity-60" style={{ background: "var(--accent-gradient)" }}>{loading ? (mode === "signup" ? "Creating account…" : "Checking account…") : (mode === "signup" ? `Create ${selectedRoleLabel} account` : `Continue as ${selectedRoleLabel}`)}</button>
           </form>
         </TiltCard>
       </motion.div>
