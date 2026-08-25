@@ -72,32 +72,42 @@ export async function saveApplication(app: {
     .catch(() => null);
 
   const referenceId = "NSH-" + Math.random().toString(36).slice(2, 8).toUpperCase();
-  const { data, error } = await supabase
-    .from("vendor_applications")
-    .insert({
-      reference_id: referenceId,
-      applicant_account_id: userId,
-      business_name: app.businessName,
-      business_type: app.category,
-      owner_name: app.ownerName,
-      owner_email: app.ownerEmail,
-      owner_phone: app.ownerPhone,
-      city: app.city,
-      subdomain_preference: app.subdomain,
-      requested_plan: app.plan,
-      message: app.message,
-      referral_code: app.referralCode ?? null,
-    })
-    .select(APPLICATION_COLUMNS)
-    .single();
-  if (error || !data) {
-    if (error) console.error("[saveApplication] insert failed:", error.message);
+  const submittedAt = new Date().toISOString();
+  // No `.select()` here: guests (no session) can't satisfy applications_select_own,
+  // so a `Prefer: return=representation` round-trip SELECT after the insert gets
+  // RLS-blocked even though the insert itself succeeds. Build the return value from
+  // what we already know instead of reading the row back.
+  const { error } = await supabase.from("vendor_applications").insert({
+    reference_id: referenceId,
+    applicant_account_id: userId,
+    business_name: app.businessName,
+    business_type: app.category,
+    owner_name: app.ownerName,
+    owner_email: app.ownerEmail,
+    owner_phone: app.ownerPhone,
+    city: app.city,
+    subdomain_preference: app.subdomain,
+    requested_plan: app.plan,
+    message: app.message,
+    referral_code: app.referralCode ?? null,
+  });
+  if (error) {
+    console.error("[saveApplication] insert failed:", error.message);
     // P0001 is our own raised exception (e.g. the rate-limit trigger) --
     // that message is intentionally user-facing. Anything else is a raw
     // Postgres/PostgREST error, which stays server-log-only.
-    throw new Error(error?.code === "P0001" ? error.message : "Failed to submit application");
+    throw new Error(error.code === "P0001" ? error.message : "Failed to submit application");
   }
-  return mapRow(data as ApplicationRow);
+  return {
+    referenceId,
+    businessName: app.businessName,
+    ownerEmail: app.ownerEmail,
+    city: app.city,
+    plan: app.plan,
+    status: "pending",
+    submittedAt,
+    referralCode: app.referralCode ?? undefined,
+  };
 }
 
 /** Public tracking by reference ID or owner email, via a security-definer RPC (RLS otherwise scopes reads to the owner). */

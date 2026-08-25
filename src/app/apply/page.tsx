@@ -151,17 +151,15 @@ function ApplyPageInner() {
       referralCode: draft?.referralCode ?? referralCode,
     };
 
-    const supabase = createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-
-    if (!user) {
-      savePendingApplication(fields);
-      router.push("/signup?returnTo=/apply");
-      return;
-    }
-
+    // No account required to apply: applications_public_insert's RLS check
+    // is unconditionally `true` and applicant_account_id is nullable, so a
+    // fully anonymous submission (no session at all) already works at the
+    // DB layer -- this used to redirect every signed-out applicant to
+    // /signup first regardless, which was a pure frontend gate the backend
+    // never actually needed. owner_email/owner_phone (both required, both
+    // already collected above) are what /apply/track uses afterward to look
+    // the application back up, same as a storefront guest tracks an order
+    // by email/phone without ever creating an account.
     setSubmitting(true);
     setSubmitError(null);
     try {

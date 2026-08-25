@@ -20,8 +20,11 @@ function statusStep(status: StoredApplication["status"]): number {
   return 0;
 }
 
+type TrackMethod = "reference" | "contact";
+
 function TrackContent() {
   const params = useSearchParams();
+  const [method, setMethod] = useState<TrackMethod>("reference");
   const [query, setQuery] = useState(params.get("ref") ?? "");
   const [result, setResult] = useState<StoredApplication | null | "not-found">(null);
   const [searching, setSearching] = useState(false);
@@ -47,16 +50,45 @@ function TrackContent() {
         <h1 className="font-display text-3xl font-semibold tracking-tight text-[var(--text)] sm:text-4xl">
           Track your application
         </h1>
-        <p className="mt-3 text-[var(--text-muted)]">Enter your reference ID or the email you applied with.</p>
+        <p className="mt-3 text-[var(--text-muted)]">
+          {method === "reference" ? "Enter the reference ID you were given." : "Enter the email or phone you applied with."}
+        </p>
       </div>
 
-      <form onSubmit={handleSearch} className="mt-8 flex items-center gap-2">
+      <div className="mt-6 flex justify-center gap-2">
+        {(
+          [
+            { id: "reference", label: "Reference ID" },
+            { id: "contact", label: "Email or Phone" },
+          ] as const
+        ).map((opt) => (
+          <button
+            key={opt.id}
+            type="button"
+            onClick={() => {
+              setMethod(opt.id);
+              setQuery("");
+              setResult(null);
+            }}
+            className="rounded-full px-4 py-2 text-sm font-semibold transition-colors"
+            style={
+              method === opt.id
+                ? { background: "var(--accent-gradient)", color: "black" }
+                : { border: "1px solid var(--border)", color: "var(--text-muted)" }
+            }
+          >
+            {opt.label}
+          </button>
+        ))}
+      </div>
+
+      <form onSubmit={handleSearch} className="mt-4 flex items-center gap-2">
         <div className="flex flex-1 items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--surface)] px-4 py-3 focus-within:border-[var(--accent-violet)]">
           <Search size={16} className="shrink-0 text-[var(--text-faint)]" />
           <input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="NSH-XXXXXX or you@business.pk"
+            placeholder={method === "reference" ? "NSH-XXXXXX" : "you@business.pk or 0300-1234567"}
             className="w-full bg-transparent text-sm text-[var(--text)] outline-none placeholder:text-[var(--text-faint)]"
           />
         </div>
