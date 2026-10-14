@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { sendApplicationSubmittedEmail } from "@/lib/email";
+import { sendApplicationSubmittedEmail, sendNewApplicationAdminEmail } from "@/lib/email";
+import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
  * Fired right after /apply successfully inserts a vendor_applications row.
@@ -32,6 +33,29 @@ export async function POST(req: NextRequest) {
     businessName: application.business_name,
     referenceId: application.reference_id,
   });
+
+  // Notify the configured platform inbox only after the application is verified in the database.
+  try {
+    const admin = createAdminClient();
+    const { data: settings } = await admin
+      .from("platform_settings")
+      .select("support_email")
+      .eq("id", true)
+      .maybeSingle();
+    if (settings?.support_email) {
+      await sendNewApplicationAdminEmail({
+        to: settings.support_email,
+        ownerName: application.owner_name,
+        ownerEmail: application.owner_email,
+        businessName: application.business_name,
+        referenceId: application.reference_id,
+      });
+    } else {
+      console.warn("[email] Application submitted but platform_settings.support_email is not configured.");
+    }
+  } catch (error) {
+    console.error("[email] Failed to notify platform about new application:", error);
+  }
 
   return NextResponse.json({ success: true });
 }
