@@ -109,6 +109,24 @@ export async function sendApplicationSubmittedEmail(params: {
   await sendMail({ to: params.to, subject: `Application received — ${params.referenceId}`, html });
 }
 
+export async function sendNewApplicationAdminEmail(params: {
+  to: string;
+  ownerName: string;
+  ownerEmail: string;
+  businessName: string;
+  referenceId: string;
+}): Promise<void> {
+  const html = wrapEmail(`
+    <h2 style="margin-top:0;">New vendor application received</h2>
+    <p><strong>${escapeHtml(params.businessName)}</strong> has applied to join Nashemann.</p>
+    <p><strong>Applicant:</strong> ${escapeHtml(params.ownerName)}<br/>
+    <strong>Email:</strong> ${escapeHtml(params.ownerEmail)}<br/>
+    <strong>Reference:</strong> ${escapeHtml(params.referenceId)}</p>
+    ${button("https://superadmin.nashemann.store/applications", "Review application")}
+  `);
+  await sendMail({ to: params.to, subject: `New vendor application — ${params.businessName}`, html, from: FROM_NOTIFICATIONS });
+}
+
 export async function sendApplicationStatusEmail(params: {
   to: string;
   ownerName: string;
