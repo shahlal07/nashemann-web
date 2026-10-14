@@ -9,6 +9,7 @@ const PLATFORM_MAILER_URL = process.env.NASHEMANN_MAILER_URL ?? "https://superad
 
 const FROM_NOTIFICATIONS = "Nashemann <notifications@nashemann.store>";
 const FROM_SUPPORT = "Nashemann <support@nashemann.store>";
+const FROM_SECURITY = "Nashemann Security <security@nashemann.store>";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nashemann.store";
 
