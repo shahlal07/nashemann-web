@@ -5,8 +5,7 @@ import "server-only";
 // best-effort throughout: a failed send here must never fail the real action
 // (application submitted, order placed, account deleted, ...) it's reporting
 // on, since that side effect already succeeded. Errors are logged, not thrown.
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const RESEND_ENDPOINT = "https://api.resend.com/emails";
+const PLATFORM_MAILER_URL = process.env.NASHEMANN_MAILER_URL ?? "https://superadmin.nashemann.store/api/notifications/send";
 
 const FROM_NOTIFICATIONS = "Nashemann <notifications@nashemann.store>";
 const FROM_SUPPORT = "Nashemann <support@nashemann.store>";
@@ -43,31 +42,35 @@ function htmlToText(html: string): string {
 }
 
 async function sendMail(params: { to: string; subject: string; html: string; from?: string }): Promise<void> {
-  if (!RESEND_API_KEY) {
-    console.warn(`[email] Skipped "${params.subject}" to ${params.to} -- RESEND_API_KEY not set.`);
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!serviceRoleKey) {
+    console.error(`[email] Skipped "${params.subject}" to ${params.to} -- SUPABASE_SERVICE_ROLE_KEY is not configured.`);
     return;
   }
+  const category = params.from === FROM_SUPPORT
+    ? "support"
+    : params.from === FROM_SECURITY
+      ? "security"
+      : "notifications";
   try {
-    const res = await fetch(RESEND_ENDPOINT, {
+    const response = await fetch(PLATFORM_MAILER_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
+        Authorization: `Bearer ${serviceRoleKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: params.from ?? FROM_NOTIFICATIONS,
         to: params.to,
         subject: params.subject,
         html: params.html,
-        text: htmlToText(params.html),
+        category,
       }),
     });
-    if (!res.ok) {
-      const body = await res.text().catch(() => "");
-      console.error(`[email] Resend rejected "${params.subject}" to ${params.to}: ${res.status} ${body}`);
+    if (!response.ok) {
+      console.error(`[email] Internal mailer rejected "${params.subject}" to ${params.to}: HTTP ${response.status}`);
     }
-  } catch (err) {
-    console.error(`[email] Failed to send "${params.subject}" to ${params.to}:`, err);
+  } catch (error) {
+    console.error(`[email] Failed to send "${params.subject}" to ${params.to} through the internal mailer:`, error);
   }
 }
 
