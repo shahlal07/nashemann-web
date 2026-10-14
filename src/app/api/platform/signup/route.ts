@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient as createSupabaseClient, type User } from "@supabase/supabase-js";
 import { createAdminClient } from "@/lib/supabase/admin";
+import { sendWelcomeEmail } from "@/lib/email";
 
 export const dynamic = "force-dynamic";
 
@@ -202,6 +203,9 @@ export async function POST(request: Request) {
     if (roles.includes("influencer")) {
       await ensureInfluencerProfile(admin, created.user.id, name, email);
     }
+
+    // Send the welcome email only for a newly created platform account, not when an existing user adds another role.
+    await sendWelcomeEmail({ to: email, name });
 
     return NextResponse.json({ ok: true, roles, email, name });
   } catch (error) {
