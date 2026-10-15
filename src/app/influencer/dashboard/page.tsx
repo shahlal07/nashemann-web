@@ -87,7 +87,7 @@ export default async function InfluencerDashboardPage() {
         {(applications?.length ?? 0) === 0 ? <div className="px-5 py-12 text-center text-sm text-[var(--text-muted)]">No referrals yet.</div> : <div className="divide-y divide-[var(--border)]">{applications!.map((app) => <div key={app.reference_id} className="flex flex-wrap items-center justify-between gap-3 px-5 py-4"><div><p className="text-sm font-semibold text-[var(--text)]">{app.business_name}</p><p className="text-xs text-[var(--text-faint)]">{app.city} · {new Date(app.submitted_at).toLocaleDateString("en-PK")}</p></div><span className="rounded-full border border-[var(--border)] px-2.5 py-1 text-xs text-[var(--text-muted)]">{app.status}</span></div>)}</div>}
       </section>
 
-      <p className="mt-5 text-center text-xs text-[var(--text-faint)]">Account-scoped to {influencer.email}. Your data is never taken from another influencer's dashboard.</p>
+      <p className="mt-5 text-center text-xs text-[var(--text-faint)]">Account-scoped to {influencer.email}. Your data is never taken from another influencer&apos;s dashboard.</p>
     </main>
   );
 }
