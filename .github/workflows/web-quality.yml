@@ -28,6 +28,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Generate Next.js route types
+        run: npx next typegen
       - name: TypeScript type check
         run: npm run typecheck
       - name: Run ESLint
