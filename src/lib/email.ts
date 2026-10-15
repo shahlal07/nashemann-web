@@ -65,6 +65,7 @@ async function sendMail(params: { to: string; subject: string; html: string; fro
         subject: params.subject,
         html: params.html,
         category,
+        source: "nashemann-web",
       }),
     });
     if (!response.ok) {
