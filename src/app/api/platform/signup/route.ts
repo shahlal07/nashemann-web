@@ -27,10 +27,6 @@ function projectRefFromJwt(value: string | undefined) {
     const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
     const claims = JSON.parse(atob(normalized)) as { ref?: unknown; iss?: unknown };
     if (typeof claims.ref === "string") return claims.ref;
-    if (typeof claims.iss === "string") {
-      const match = claims.iss.match(/^https:\/\/([^.]+)\\.supabase\\.co\\/auth\\/v1$/);
-      if (match) return match[1];
-    }
   } catch {
     // New-format publishable keys are not JWTs; the URL check still applies.
   }
