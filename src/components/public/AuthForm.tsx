@@ -104,6 +104,13 @@ export function AuthForm({ initialMode, initialRole }: { initialMode: "signup" |
       if (signInError) throw new Error("Incorrect email or password.");
       let actual;
       try { actual = await resolveActualRoles(); } catch (roleError) { await supabase.auth.signOut(); throw roleError; }
+      // Vendor-admin accounts use the same Supabase Auth credentials as the vendor-admins app.
+      // If this account is only a storefront admin, route directly to its vendor-scoped revenue view
+      // instead of making the user select a role that is not part of their platform account.
+      if (actual.roles.length === 1 && actual.roles[0] === "storefront") {
+        router.push("/revenue");
+        return;
+      }
       if (!actual.roles.includes(loginRole)) {
         await supabase.auth.signOut();
         const actualLabel = actual.roles.length > 0 ? actual.roles.map((r) => ROLE_LABELS[r]).join(" & ") : "an unsupported account type";
