@@ -11,6 +11,35 @@ const PHONE_RE = /^03\d{9}$/;
 type SignupRole = "vendor" | "influencer";
 const VALID_ROLES: SignupRole[] = ["vendor", "influencer"];
 
+function projectRefFromUrl(value: string | undefined) {
+  try {
+    return value ? new URL(value).hostname.split(".")[0] : null;
+  } catch {
+    return null;
+  }
+}
+
+function projectRefFromJwt(value: string | undefined) {
+  if (!value) return null;
+  try {
+    const payload = value.split(".")[1];
+    if (!payload) return null;
+    const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
+    const claims = JSON.parse(atob(normalized)) as { ref?: unknown; iss?: unknown };
+    if (typeof claims.ref === "string") return claims.ref;
+  } catch {
+    // New-format publishable keys are not JWTs; the URL check still applies.
+  }
+  return null;
+}
+
+function hasConsistentSupabaseProject() {
+  const urlRef = projectRefFromUrl(process.env.NEXT_PUBLIC_SUPABASE_URL);
+  const anonRef = projectRefFromJwt(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+  const serviceRef = projectRefFromJwt(process.env.SUPABASE_SERVICE_ROLE_KEY ?? process.env.SUPABASE_SECRET_KEY);
+  return Boolean(urlRef && (!anonRef || anonRef === urlRef) && (!serviceRef || serviceRef === urlRef));
+}
+
 function normalizePhone(value: string) {
   return value.replace(/[\s-]/g, "");
 }
@@ -92,6 +121,14 @@ export async function POST(request: Request) {
     }
     if (password.length < 8) {
       return NextResponse.json({ error: "Password must be at least 8 characters." }, { status: 400 });
+    }
+
+    if (!hasConsistentSupabaseProject()) {
+      console.error("[platform/signup] Supabase URL and API keys appear to target different projects.");
+      return NextResponse.json(
+        { error: "Signup is temporarily misconfigured. Please contact Nashemann support; no account was created by this request." },
+        { status: 503 },
+      );
     }
 
     const admin = createAdminClient();
