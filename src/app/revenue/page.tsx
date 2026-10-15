@@ -9,7 +9,7 @@ function money(value: number) {
 export default async function RevenueViewPage() {
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user?.email) redirect("/login?error=not_storefront");
+  if (!user?.email) redirect("/login?role=storefront&error=not_storefront");
 
   const admin = createAdminClient();
   const { data: vendorAdmin } = await admin
@@ -19,7 +19,7 @@ export default async function RevenueViewPage() {
     .limit(1)
     .maybeSingle();
 
-  if (!vendorAdmin) redirect("/login?error=not_storefront");
+  if (!vendorAdmin) redirect("/login?role=storefront&error=not_storefront");
 
   const { data: vendor } = await admin
     .from("vendors")
@@ -27,7 +27,7 @@ export default async function RevenueViewPage() {
     .eq("id", vendorAdmin.vendor_id)
     .maybeSingle();
 
-  if (!vendor) redirect("/login?error=store_not_found");
+  if (!vendor) redirect("/login?role=storefront&error=store_not_found");
 
   const { data: orders } = await admin
     .from("orders")
