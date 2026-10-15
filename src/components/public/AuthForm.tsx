@@ -62,7 +62,7 @@ export function AuthForm({ initialMode, initialRole }: { initialMode: "signup" |
   async function signInAfterCreation(email: string, password: string, expectedRoles: SignupRole[]) {
     const supabase = createClient();
     const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
-    if (signInError) throw new Error(signInError.message);
+    if (signInError) throw new Error("Your account was created, but automatic sign-in failed. Please use Log in with this email and password. If login also fails, contact Nashemann support.");
     const actual = await resolveActualRoles();
     const missing = expectedRoles.filter((r) => !actual.roles.includes(r));
     if (missing.length > 0) {
