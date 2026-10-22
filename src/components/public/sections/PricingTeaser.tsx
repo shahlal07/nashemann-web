@@ -51,7 +51,11 @@ export function PricingTeaser() {
         </h2>
       </motion.div>
 
-      <div className="mx-auto mt-14 grid max-w-3xl grid-cols-1 gap-5 sm:grid-cols-2">
+      <p className="mx-auto mt-6 max-w-2xl text-center text-sm text-[var(--text-muted)]">
+        <span className="font-semibold text-[var(--text)]">You never pay out of pocket on Pay Per Order</span> - the Rs {pricing.perOrderFee} fee is added to the customer&apos;s bill at checkout, so your product price stays yours.
+      </p>
+
+      <div className="mx-auto mt-8 grid max-w-3xl grid-cols-1 gap-5 sm:grid-cols-2">
         {PLANS.map((plan, i) => (
           <motion.div
             key={plan.name}

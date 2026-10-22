@@ -8,7 +8,7 @@ import { TiltCard } from "@/components/public/TiltCard";
 import { getPlatformPricing, type PlatformPricing } from "@/lib/mock-data";
 import { formatPKR } from "@/lib/utils";
 
-const DEFAULT_PRICING: PlatformPricing = { perOrderFee: 15, monthlyFee: 7000, monthlyBreakEvenOrders: 467, customDomainFee: 4600 };
+const DEFAULT_PRICING: PlatformPricing = { perOrderFee: 20, monthlyFee: 7000, monthlyBreakEvenOrders: 350, customDomainFee: 4600 };
 
 const FAQS = [
   { q: "Is there really no upfront cost?", a: "Correct — on the Pay Per Order plan, you owe nothing until a customer actually completes an order. The Rs 15 fee is charged to the customer, not deducted from your revenue." },

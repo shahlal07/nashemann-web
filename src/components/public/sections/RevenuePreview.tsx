@@ -61,7 +61,7 @@ export function RevenuePreview() {
           transition={{ duration: 0.6, delay: 0.1 }}
         >
           <TiltCard strength={6} className="p-6">
-            <p className="text-xs font-medium text-[var(--text-faint)]">Sabz Basket · This month</p>
+            <p className="text-xs font-medium text-[var(--text-faint)]">Sabz Basket - illustrative example</p>
             <p className="font-display mt-1 text-4xl font-bold text-[var(--text)]">
               Rs <StatCounter value={112800} />
             </p>
@@ -86,3 +86,4 @@ export function RevenuePreview() {
     </section>
   );
 }
+

@@ -23,7 +23,7 @@ import { createClient } from "@/lib/supabase/client";
 import { getCategorySchemas, getPlatformPricing, type CategoryProductSchema, type PlatformPricing } from "@/lib/mock-data";
 import { formatPKR } from "@/lib/utils";
 
-const DEFAULT_PRICING: PlatformPricing = { perOrderFee: 15, monthlyFee: 7000, monthlyBreakEvenOrders: 467, customDomainFee: 4600 };
+const DEFAULT_PRICING: PlatformPricing = { perOrderFee: 20, monthlyFee: 7000, monthlyBreakEvenOrders: 350, customDomainFee: 4600 };
 
 const inputClass =
   "w-full rounded-[var(--radius-sm)] border border-[var(--border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text)] outline-none transition-colors placeholder:text-[var(--text-faint)] focus:border-[var(--accent-violet)] accent-ring";

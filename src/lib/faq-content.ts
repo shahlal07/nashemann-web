@@ -2,9 +2,9 @@ import type { PlatformPricing } from "@/lib/mock-data";
 import { formatPKR } from "@/lib/utils";
 
 export const DEFAULT_FAQ_PRICING: PlatformPricing = {
-  perOrderFee: 15,
+  perOrderFee: 20,
   monthlyFee: 7000,
-  monthlyBreakEvenOrders: 467,
+  monthlyBreakEvenOrders: 350,
   customDomainFee: 4600,
 };
 

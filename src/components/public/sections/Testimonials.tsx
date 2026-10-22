@@ -22,7 +22,9 @@ function TestimonialGrid() {
             <Quote size={22} className="text-[var(--accent-violet)] opacity-60" />
             <p className="mt-3 text-sm leading-relaxed text-[var(--text-muted)]">&ldquo;{t.quote}&rdquo;</p>
             <div className="mt-5 flex items-center gap-3 border-t border-[var(--border)] pt-4">
-              <span className="text-2xl">{t.emoji}</span>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold text-black" style={{ background: "var(--accent-gradient)" }}>
+                {t.name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase()}
+              </span>
               <div>
                 <p className="text-sm font-semibold text-[var(--text)]">{t.name}</p>
                 <p className="text-xs text-[var(--text-faint)]">{t.business}</p>

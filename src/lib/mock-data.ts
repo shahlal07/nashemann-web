@@ -358,9 +358,9 @@ export type PlatformPricing = {
 };
 
 const DEFAULT_PRICING: PlatformPricing = {
-  perOrderFee: 15,
+  perOrderFee: 20,
   monthlyFee: 7000,
-  monthlyBreakEvenOrders: 467,
+  monthlyBreakEvenOrders: 350,
   customDomainFee: 4600,
 };
 

@@ -99,7 +99,7 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
     { title: "Apply in 3 minutes", description: "Tell us about your business — no paperwork, no upfront cost, decision within 24 hours.", icon: "FileEdit" },
     { title: "We build your store", description: "A branded storefront on your own subdomain, seeded and ready — you just add products.", icon: "Rocket" },
     { title: "Customers order", description: "Real checkout, real orders, delivered your way — you stay fully in control of fulfillment.", icon: "ShoppingBag" },
-    { title: "You grow, we earn together", description: "Rs 15 per order, or a flat monthly plan once you outgrow it. Never a surprise bill.", icon: "TrendingUp" },
+    { title: "You grow, we earn together", description: "Rs 20 per order, or a flat monthly plan once you outgrow it. Never a surprise bill.", icon: "TrendingUp" },
   ],
   features: [
     { title: "Your own branded storefront", description: "Custom colors, logo, and typeface — customers never know it runs on shared infrastructure.", icon: "Palette" },
@@ -107,7 +107,7 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
     { title: "Built-in inventory tracking", description: "Stock levels update automatically — never oversell a product that's already gone.", icon: "Boxes" },
     { title: "Revenue you can actually see", description: "A live dashboard of every rupee — no waiting for a monthly statement.", icon: "LineChart" },
     { title: "WhatsApp & AI support", description: "Your customers get instant answers, day or night, escalated to a human when it matters.", icon: "MessageCircle" },
-    { title: "Zero upfront cost", description: "Pay Rs 15 only when an order actually happens. No subscription required to start.", icon: "ShieldCheck" },
+    { title: "Zero upfront cost", description: "Pay Rs 20 only when an order actually happens. No subscription required to start.", icon: "ShieldCheck" },
   ],
   testimonials: [
     {
@@ -118,7 +118,7 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
       emoji: "🥐",
     },
     {
-      quote: "The Rs 15/order model meant we could try it with zero risk. Three months later it's half our business.",
+      quote: "The Rs 20/order model meant we could try it with zero risk. Three months later it's half our business.",
       name: "Fatima Noor",
       business: "Sabz Basket, Karachi",
       emoji: "🥬",
@@ -134,7 +134,7 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
     headline: "Nashemann Rewards",
     subheadline: "Grow the platform, and we grow your store back.",
     tiers: [
-      { name: "Seedling", ordersRequired: 0, perk: "Standard Rs 15/order rate", icon: "Sprout" },
+      { name: "Seedling", ordersRequired: 0, perk: "Standard Rs 20/order rate", icon: "Sprout" },
       { name: "Rooted", ordersRequired: 200, perk: "2% off platform fees for a month", icon: "Trees" },
       { name: "Thriving", ordersRequired: 750, perk: "Free custom domain (worth Rs 4,600)", icon: "Flower2" },
       { name: "Flagship", ordersRequired: 2000, perk: "Featured on the Nashemann homepage", icon: "Star" },
@@ -165,9 +165,9 @@ export const SITE_CONTENT_DEFAULTS: SiteContent = {
   },
   promo_popup: {
     enabled: true,
-    eyebrow: "Limited-time",
-    headline: "First 10 vendors — Monthly plan free for 3 months",
-    description: "Applying this week? Mention code EARLYBIRD and skip the Rs 7,000/mo fee for your first quarter.",
+    eyebrow: "Early access",
+    headline: "Founding vendors - Monthly plan free for 3 months",
+    description: "Applying in our first quarter? Mention code EARLYBIRD to waive the Rs 7,000/mo fee for your first 3 months.",
     cta: "Apply now",
     delayMs: 4000,
   },
