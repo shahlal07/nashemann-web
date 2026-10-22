@@ -101,7 +101,7 @@ export function VendorShowcase() {
       >
         <span className="text-xs font-semibold uppercase tracking-widest text-[var(--accent-violet)]">Live on Nashemann</span>
         <h2 className="font-display mt-3 text-2xl font-semibold tracking-tight text-[var(--text)] sm:text-3xl lg:text-4xl">
-          Real stores, already selling.
+          Real stores, live on Nashemann.
         </h2>
       </motion.div>
 
