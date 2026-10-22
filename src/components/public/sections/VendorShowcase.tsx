@@ -58,7 +58,13 @@ function VendorCard({ v, i }: { v: ShowcaseVendor; i: number }) {
         <div className="mt-5 flex items-center gap-2 border-t border-[var(--border)] pt-4">
           <ShoppingBag size={13} className="text-[var(--accent-violet)]" />
           <p className="text-xs text-[var(--text-muted)]">
-            <span className="font-semibold text-[var(--text)]">{v.ordersLast30d}</span> orders in the last 30 days
+            {v.ordersLast30d > 0 ? (
+              <>
+                <span className="font-semibold text-[var(--text)]">{v.ordersLast30d}</span> orders in the last 30 days
+              </>
+            ) : (
+              "Newly onboarded - first orders coming soon"
+            )}
           </p>
         </div>
 

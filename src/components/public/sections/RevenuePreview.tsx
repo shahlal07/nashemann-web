@@ -65,7 +65,7 @@ export function RevenuePreview() {
             <p className="font-display mt-1 text-4xl font-bold text-[var(--text)]">
               Rs <StatCounter value={112800} />
             </p>
-            <p className="mt-1 text-xs text-[var(--success)]">↑ 18% vs last month</p>
+            <p className="mt-1 text-xs text-[var(--text-faint)]">Sample dashboard - your numbers appear here</p>
             <div className="mt-5 grid grid-cols-3 gap-3 border-t border-[var(--border)] pt-5">
               <div>
                 <p className="text-[0.65rem] text-[var(--text-faint)]">Orders</p>

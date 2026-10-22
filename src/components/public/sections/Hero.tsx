@@ -96,6 +96,16 @@ export function Hero() {
           <motion.div variants={fadeUp} className="mt-12 flex flex-wrap gap-x-10 gap-y-4">
             {stats.map((s) => {
               const isVendorStat = s.label.toLowerCase().includes("vendor");
+              const isOrderStat = s.label.toLowerCase().includes("order");
+              const hideZero = isOrderStat && s.value === 0;
+              if (hideZero) {
+                return (
+                  <div key={s.label}>
+                    <p className="font-display text-2xl font-semibold text-[var(--text)]">Soon</p>
+                    <p className="text-xs text-[var(--text-faint)]">First orders on the way</p>
+                  </div>
+                );
+              }
               return (
                 <div key={s.label}>
                   <p className="font-display text-2xl font-semibold text-[var(--text)]">
@@ -103,7 +113,7 @@ export function Hero() {
                   </p>
                   <p className="text-xs text-[var(--text-faint)]">
                     {s.label}
-                    {isVendorStat && smallScale && <span className="text-[var(--accent-violet)]"> — growing daily</span>}
+                    {isVendorStat && smallScale && <span className="text-[var(--accent-violet)]"> - growing daily</span>}
                   </p>
                 </div>
               );
