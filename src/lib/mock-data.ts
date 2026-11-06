@@ -400,8 +400,10 @@ type VendorRow = {
   white_label_enabled: boolean;
 };
 
-/** Active vendor rows for the homepage showcase -- real rows only, no fallback to MOCK_VENDORS. */
-export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
+/** Only the three verified, live Nashemann storefronts belong in the public showcase. */
+const SHOWCASE_STORE_SLUGS = ["theaamghar", "minacafe", "nigehbaan"] as const;
+
+export async function getShowcaseVendors(): Promise<ShowcaseVendor[]> {
   try {
     const supabase = createClient();
     const { data, error } = await supabase
@@ -410,10 +412,10 @@ export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
         "id, name, subdomain, custom_domain, category, city, orders_last_30d, theme_logo_emoji, theme_logo_url, theme_accent_from, theme_accent_to, joined_at, white_label_enabled"
       )
       .eq("status", "active")
-      .order("joined_at", { ascending: false })
-      .limit(limit);
+      .in("subdomain", [...SHOWCASE_STORE_SLUGS]);
     if (error || !data) return [];
-    return (data as VendorRow[]).map((v) => ({
+
+    const vendors = (data as VendorRow[]).map((v) => ({
       id: v.id,
       name: v.name,
       subdomain: v.subdomain,
@@ -428,6 +430,13 @@ export async function getShowcaseVendors(limit = 3): Promise<ShowcaseVendor[]> {
       joinedAt: v.joined_at,
       whiteLabelEnabled: v.white_label_enabled,
     }));
+
+    // Keep the requested store order regardless of onboarding dates.
+    return vendors.sort(
+      (a, b) =>
+        SHOWCASE_STORE_SLUGS.indexOf(a.subdomain as (typeof SHOWCASE_STORE_SLUGS)[number]) -
+        SHOWCASE_STORE_SLUGS.indexOf(b.subdomain as (typeof SHOWCASE_STORE_SLUGS)[number])
+    );
   } catch {
     return [];
   }
