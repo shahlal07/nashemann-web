@@ -217,7 +217,8 @@ export const MOCK_VENDORS: Vendor[] = [
   },
   {
     id: "v5",
-    name: "Haveli Handicrafts",    subdomain: "haveli-crafts",
+    name: "Haveli Handicrafts",
+    subdomain: "haveli-crafts",
     customDomain: null,
     category: "Artisan",
     city: "Multan",
@@ -446,6 +447,7 @@ export type PlatformLiveStats = {
   ordersLast30d: number;
   pendingApplications: number;
 };
+
 /** Live counts for the hero stat row -- replaces the seeded `site_content.hero.stats` numbers so the homepage never overstates real scale. */
 export async function getPlatformLiveStats(): Promise<PlatformLiveStats | null> {
   try {
@@ -664,7 +666,8 @@ export const MOCK_INFLUENCER_APPLICATIONS: InfluencerApplication[] = [
   },
   {
     id: "ia2",
-    name: "Karachi Eats Guide",    email: "team@karachieats.pk",
+    name: "Karachi Eats Guide",
+    email: "team@karachieats.pk",
     socialHandle: "@karachieatsguide",
     platform: "Instagram",
     followerCount: 23000,
@@ -884,3 +887,103 @@ export const MOCK_BUG_REPORTS: BugReport[] = [
 ];
 
 // ── Announcements (platform → vendors, not platform → end customers) ────────
+
+export type AnnouncementCategory = "product_update" | "policy_change" | "promotion";
+
+export type SentAnnouncement = {
+  id: string;
+  category: AnnouncementCategory;
+  title: string;
+  message: string;
+  recipientCount: number;
+  sentAt: string;
+};
+
+export const ANNOUNCEMENT_CATEGORY_LABEL: Record<AnnouncementCategory, string> = {
+  product_update: "Product Update",
+  policy_change: "Policy Change",
+  promotion: "Offer / Promotion",
+};
+
+export const MOCK_SENT_ANNOUNCEMENTS: SentAnnouncement[] = [
+  {
+    id: "an1",
+    category: "product_update",
+    title: "Tenant Health dashboard is live",
+    message: "You can now see your order failure rate and stock warnings right from your admin panel.",
+    recipientCount: 5,
+    sentAt: "2026-08-10T09:00:00Z",
+  },
+  {
+    id: "an2",
+    category: "promotion",
+    title: "Refer a business, earn Rs 2,000",
+    message: "The influencer and vendor referral program is now open platform-wide.",
+    recipientCount: 5,
+    sentAt: "2026-08-05T09:00:00Z",
+  },
+];
+
+// ── AI Assistant (super-admin queries platform-wide data) ────────────────────
+
+export const AI_ASSISTANT_SUGGESTIONS = [
+  "Which vendors need attention today?",
+  "Summarize platform revenue this month",
+  "Which vendors are close to their break-even order volume?",
+  "How many applications are pending review?",
+];
+
+export function mockAssistantReply(question: string): string {
+  const q = question.toLowerCase();
+  const stats = getPlatformStats();
+  if (/revenue|earn|fee/.test(q)) {
+    return `Platform fees collected this month: ${formatPKRLike(stats.platformFeeThisMonth)}. TheAamGhar and Bloom & Batter are your top two contributors.`;
+  }
+  if (/attention|health|fail/.test(q)) {
+    const worst = MOCK_TENANT_HEALTH.filter((h) => h.status === "active").sort((a, b) => b.failureRate - a.failureRate)[0];
+    return worst
+      ? `${worst.vendorName} has the highest order failure rate right now at ${worst.failureRate}% — worth checking in on.`
+      : "All active vendors look healthy right now.";
+  }
+  if (/break-even|break even|monthly plan/.test(q)) {
+    const close = MOCK_VENDORS.filter((v) => v.plan === "per_order" && v.ordersLast30d > 300);
+    return close.length > 0
+      ? `${close.map((v) => v.name).join(", ")} ${close.length === 1 ? "is" : "are"} getting close to where the Monthly plan would cost less than Pay Per Order.`
+      : "No vendor is close to the Monthly break-even point yet.";
+  }
+  if (/pending|application/.test(q)) {
+    return `${stats.pendingApplications} vendor application(s) are waiting for review right now.`;
+  }
+  return "I can only answer questions here, not change anything — try asking about revenue, vendor health, or pending applications.";
+}
+
+function formatPKRLike(n: number) {
+  return "Rs " + Math.round(n).toLocaleString("en-PK");
+}
+
+// ── Rewards & Referrals admin dashboard (vendor-side program, platform view) ─
+
+export type LeaderboardEntry = {
+  id: string;
+  name: string;
+  email: string;
+  lifetimePoints: number;
+  credits: number;
+};
+
+export const MOCK_VENDOR_LEADERBOARD: LeaderboardEntry[] = [
+  { id: "v2", name: "Bloom & Batter", email: "sana@bloombatter.pk", lifetimePoints: 890, credits: 2000 },
+  { id: "v3", name: "Sabz Basket", email: "fatima@sabzbasket.pk", lifetimePoints: 540, credits: 0 },
+  { id: "v1", name: "TheAamGhar", email: "admin@theaamghar.pk", lifetimePoints: 310, credits: 0 },
+];
+
+export type TopReferrer = { name: string; conversions: number };
+export const MOCK_TOP_REFERRERS: TopReferrer[] = [
+  { name: "Hania Aamir Malik", conversions: 2 },
+  { name: "Owais Foodie Reviews", conversions: 1 },
+];
+
+export type RewardRedemption = { name: string; tier: string; couponCode: string; credits: number };
+export const MOCK_REDEMPTIONS: RewardRedemption[] = [
+  { name: "Bloom & Batter", tier: "Thriving", couponCode: "THRIVE-BB26", credits: 2000 },
+];
